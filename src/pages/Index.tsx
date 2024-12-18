@@ -1,5 +1,6 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { MainSidebar } from "@/components/MainSidebar"
+import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 
 // Sample data for demonstration
@@ -33,8 +34,8 @@ const Index = () => {
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background">
         <MainSidebar />
-        <main className="flex-1 p-6">
-          <div className="mx-auto max-w-2xl">
+        <main className="flex-1 pb-20 md:pb-6">
+          <div className="mx-auto max-w-2xl p-6">
             <div className="space-y-6">
               {posts.map((post, index) => (
                 <PostCard key={index} {...post} />
@@ -42,6 +43,7 @@ const Index = () => {
             </div>
           </div>
         </main>
+        <BottomNav />
       </div>
     </SidebarProvider>
   )
