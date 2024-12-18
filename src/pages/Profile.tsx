@@ -58,11 +58,13 @@ const Profile = () => {
   const reels = [
     {
       id: "1",
-      videoUrl: "https://example.com/reel1.mp4", // Replace with actual video URL
-      caption: "Check out my latest reel! #football #mancity",
-      author: "city_guy32",
-      likes: 245,
-      comments: 12
+      videoUrl: "https://example.com/reel1.mp4",
+      caption: "Send this to the girl who doesn't need make up to look beautiful. #beauty #confidence",
+      author: "daily_quotes.211",
+      likes: 65700,
+      comments: 858,
+      audioTitle: "Original audio",
+      userAvatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=daily_quotes"
     }
   ]
 
