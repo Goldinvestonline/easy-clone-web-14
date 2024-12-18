@@ -2,9 +2,10 @@ import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Grid3X3, BookMarked, Settings, Share2, UserPlus, X } from "lucide-react"
+import { Grid3X3, BookMarked, Share2, UserPlus, X } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
+import { ProfileSettingsMenu } from "@/components/ProfileSettingsMenu"
 
 const Profile = () => {
   const profile = {
@@ -64,9 +65,7 @@ const Profile = () => {
               <h1 className="text-xl font-semibold">{profile.username}</h1>
             </div>
             <div className="flex items-center gap-4">
-              <Button variant="ghost" size="icon" className="h-9 w-9">
-                <Settings className="h-6 w-6" />
-              </Button>
+              <ProfileSettingsMenu />
             </div>
           </div>
         </div>
