@@ -2,6 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { MainSidebar } from "@/components/MainSidebar"
 import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
+import { Stories } from "@/components/Stories"
 
 // Sample data for demonstration
 const posts = [
@@ -36,6 +37,7 @@ const Index = () => {
         <MainSidebar />
         <main className="flex-1 pb-20 md:pb-6">
           <div className="mx-auto max-w-2xl p-6">
+            <Stories />
             <div className="space-y-6">
               {posts.map((post, index) => (
                 <PostCard key={index} {...post} />
