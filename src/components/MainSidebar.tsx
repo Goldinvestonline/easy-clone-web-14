@@ -8,29 +8,37 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { Home, Users, Bell, MessageSquare, UserCircle, Search } from "lucide-react"
-import { Link } from "react-router-dom"
+import { Home, Search, PlusSquare, MessageCircle, Heart, UserCircle } from "lucide-react"
+import { Link, useLocation } from "react-router-dom"
 
 const menuItems = [
   { icon: Home, label: "Home", path: "/" },
-  { icon: Users, label: "Friends", path: "/friends" },
-  { icon: MessageSquare, label: "Messages", path: "/messages" },
-  { icon: Bell, label: "Notifications", path: "/notifications" },
+  { icon: Search, label: "Explore", path: "/explore" },
+  { icon: PlusSquare, label: "Create", path: "/create" },
+  { icon: MessageCircle, label: "Messages", path: "/messages" },
+  { icon: Heart, label: "Notifications", path: "/notifications" },
   { icon: UserCircle, label: "Profile", path: "/profile" },
 ]
 
 export function MainSidebar() {
+  const location = useLocation()
+
   return (
     <Sidebar>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupLabel>
+            <span className="text-xl font-bold">Photogram</span>
+          </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.label}>
                   <SidebarMenuButton asChild>
-                    <Link to={item.path}>
+                    <Link 
+                      to={item.path}
+                      className={location.pathname === item.path ? "bg-accent" : ""}
+                    >
                       <item.icon className="h-5 w-5" />
                       <span>{item.label}</span>
                     </Link>

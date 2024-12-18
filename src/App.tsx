@@ -15,7 +15,8 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Index />} />
-          <Route path="/friends" element={<div>Friends page coming soon</div>} />
+          <Route path="/explore" element={<div>Explore page coming soon</div>} />
+          <Route path="/create" element={<div>Create post page coming soon</div>} />
           <Route path="/messages" element={<div>Messages page coming soon</div>} />
           <Route path="/notifications" element={<div>Notifications page coming soon</div>} />
           <Route path="/profile" element={<div>Profile page coming soon</div>} />

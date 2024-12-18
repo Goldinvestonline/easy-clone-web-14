@@ -1,4 +1,4 @@
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar"
+import { SidebarProvider } from "@/components/ui/sidebar"
 import { MainSidebar } from "@/components/MainSidebar"
 import { PostCard } from "@/components/PostCard"
 
@@ -9,7 +9,8 @@ const posts = [
       name: "John Doe",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
     },
-    content: "Just launched my new project! Really excited to share it with everyone.",
+    content: "Just launched my new project! Really excited to share it with everyone. 🚀",
+    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&auto=format&fit=crop",
     timestamp: "2 hours ago",
     likes: 24,
     comments: 5,
@@ -19,7 +20,8 @@ const posts = [
       name: "Jane Smith",
       avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane",
     },
-    content: "Beautiful day for coding! Working on some new features.",
+    content: "Beautiful day for coding! Working on some new features. ☀️💻",
+    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&auto=format&fit=crop",
     timestamp: "4 hours ago",
     likes: 15,
     comments: 3,
@@ -33,11 +35,7 @@ const Index = () => {
         <MainSidebar />
         <main className="flex-1 p-6">
           <div className="mx-auto max-w-2xl">
-            <div className="mb-6 flex items-center justify-between">
-              <h1 className="text-2xl font-bold">News Feed</h1>
-              <SidebarTrigger />
-            </div>
-            <div className="space-y-4">
+            <div className="space-y-6">
               {posts.map((post, index) => (
                 <PostCard key={index} {...post} />
               ))}
