@@ -1,52 +1,37 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { MainSidebar } from "@/components/MainSidebar"
 import { BottomNav } from "@/components/BottomNav"
-import { PostCard } from "@/components/PostCard"
-import { Stories } from "@/components/Stories"
+import { MessagesView } from "@/components/MessagesView"
 
-// Sample data for demonstration
-const posts = [
+// Sample messages data for demonstration
+const messages = [
   {
-    author: {
+    id: "1",
+    sender: {
       name: "Sarah Auma",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
-      subscriptionType: 'hybrid' as const
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
     },
-    content: "New dance video! 🎵 #dance #nairobi",
-    image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&auto=format&fit=crop",
-    timestamp: "2 hours ago",
-    likes: 245,
-    comments: 12,
-    isPremium: true,
-    premiumPrice: 2.99,
-    isBlurred: true
+    lastMessage: "Hey, how are you doing?",
+    timestamp: "2 min ago",
+    unread: true
   },
   {
-    author: {
+    id: "2",
+    sender: {
       name: "David Omondi",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
-      subscriptionType: 'paid' as const
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David"
     },
-    content: "Latest comedy skit! 😂 #comedy #entertainment",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&auto=format&fit=crop",
-    timestamp: "4 hours ago",
-    likes: 892,
-    comments: 45,
-    isPremium: true,
-    isBlurred: true
+    lastMessage: "Thanks for subscribing to my content!",
+    timestamp: "1 hour ago"
   },
   {
-    author: {
+    id: "3",
+    sender: {
       name: "Grace Muthoni",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Grace",
-      subscriptionType: 'free' as const
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Grace"
     },
-    content: "Beautiful sunset in Mombasa! 🌅 #travel #kenya",
-    image: "https://images.unsplash.com/photo-1494548162494-384bba4ab999?w=800&auto=format&fit=crop",
-    timestamp: "6 hours ago",
-    likes: 567,
-    comments: 23,
-    isPremium: false
+    lastMessage: "Looking forward to your next post",
+    timestamp: "2 hours ago"
   }
 ]
 
@@ -57,12 +42,7 @@ const Index = () => {
         <MainSidebar />
         <main className="flex-1 pb-20 md:pb-6">
           <div className="mx-auto max-w-2xl p-6">
-            <Stories />
-            <div className="space-y-6">
-              {posts.map((post, index) => (
-                <PostCard key={index} {...post} />
-              ))}
-            </div>
+            <MessagesView messages={messages} />
           </div>
         </main>
         <BottomNav />
