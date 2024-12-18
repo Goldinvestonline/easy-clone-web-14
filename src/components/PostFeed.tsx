@@ -4,8 +4,30 @@ import { useInView } from "react-intersection-observer"
 import { PostCard } from "./PostCard"
 import { Skeleton } from "./ui/skeleton"
 
+interface Post {
+  id: string
+  author: {
+    name: string
+    avatar: string
+    subscriptionType: 'free' | 'paid' | 'hybrid'
+  }
+  content: string
+  image?: string
+  timestamp: string
+  likes: number
+  comments: number
+  isPremium: boolean
+  premiumPrice?: number
+}
+
+interface PostsResponse {
+  posts: Post[]
+  nextPage: number
+  hasMore: boolean
+}
+
 // Simulated posts data - in a real app this would come from an API
-const getPosts = async ({ pageParam = 1 }) => {
+const getPosts = async ({ pageParam = 1 }): Promise<PostsResponse> => {
   // Simulate API delay
   await new Promise(resolve => setTimeout(resolve, 1000))
   
@@ -41,9 +63,9 @@ export const PostFeed = () => {
     hasNextPage,
     isFetchingNextPage,
     status
-  } = useInfiniteQuery({
+  } = useInfiniteQuery<PostsResponse>({
     queryKey: ['posts'],
-    queryFn: getPosts,
+    queryFn: ({ pageParam }) => getPosts({ pageParam }),
     getNextPageParam: (lastPage) => lastPage.hasMore ? lastPage.nextPage : undefined,
     initialPageSize: 5
   })
