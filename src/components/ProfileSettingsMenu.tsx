@@ -17,8 +17,24 @@ import {
   Globe,
   LogOut,
 } from "lucide-react"
+import { useEffect, useState } from "react"
 
 export function ProfileSettingsMenu() {
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    // Check if dark mode is already enabled
+    if (document.documentElement.classList.contains('dark')) {
+      setIsDark(true)
+    }
+  }, [])
+
+  const toggleDarkMode = () => {
+    const newIsDark = !isDark
+    setIsDark(newIsDark)
+    document.documentElement.classList.toggle('dark')
+  }
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -55,9 +71,10 @@ export function ProfileSettingsMenu() {
           <HelpCircle className="h-5 w-5" />
           <span>Help and support</span>
         </DropdownMenuItem>
-        <DropdownMenuItem className="gap-2 h-11">
+        <DropdownMenuItem className="gap-2 h-11" onClick={toggleDarkMode}>
           <Moon className="h-5 w-5" />
           <span>Dark mode</span>
+          <span className="ml-auto text-muted-foreground text-sm">{isDark ? 'On' : 'Off'}</span>
         </DropdownMenuItem>
         <DropdownMenuItem className="gap-2 h-11">
           <Globe className="h-5 w-5" />
