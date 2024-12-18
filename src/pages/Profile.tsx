@@ -2,23 +2,43 @@ import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Grid3X3, BookMarked, Settings } from "lucide-react"
+import { Grid3X3, BookMarked, Settings, Share2, UserPlus } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
 
 const Profile = () => {
   // This would come from auth/database in a real app
   const profile = {
-    username: "johndoe",
-    name: "John Doe",
+    username: "city_guy32",
+    name: "City_guy",
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
-    bio: "Digital creator & photographer 📸",
-    website: "https://johndoe.com",
-    posts: 42,
-    followers: 1234,
-    following: 567,
-    isVerified: true,
+    bio: "Man city fan from 🇪🇸\nI want man city mutuals",
+    posts: 8,
+    followers: 41,
+    following: 223,
   }
+
+  // Sample suggested users
+  const suggestedUsers = [
+    {
+      id: 1,
+      username: "Magma_Son Mu...",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Magma",
+      subtitle: "Suggested for you"
+    },
+    {
+      id: 2,
+      username: "Bwogi Julius",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Bwogi",
+      subtitle: "Following yaket950"
+    },
+    {
+      id: 3,
+      username: "Hannibal",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Hannibal",
+      subtitle: "Suggested for you"
+    }
+  ]
 
   // Sample posts data
   const posts = [
@@ -34,66 +54,95 @@ const Profile = () => {
       likes: 89,
       comments: 5,
     },
-    // Add more sample posts as needed
   ]
 
   return (
-    <div className="md:flex">
+    <div className="md:flex min-h-screen bg-background">
       <MainSidebar />
       <main className="flex-1 pb-16 md:pb-0">
-        <div className="container max-w-4xl mx-auto py-8">
+        <div className="container max-w-2xl mx-auto py-4">
           {/* Profile Header */}
-          <div className="flex flex-col md:flex-row items-center md:items-start gap-8 mb-8">
-            <Avatar className="w-32 h-32">
+          <div className="flex items-center justify-between px-4 mb-6">
+            <h1 className="text-xl font-semibold">{profile.username}</h1>
+            <div className="flex items-center gap-2">
+              <Button variant="ghost" size="icon">
+                <Settings className="h-6 w-6" />
+              </Button>
+            </div>
+          </div>
+
+          {/* Profile Info */}
+          <div className="flex px-4 mb-6 items-center">
+            <Avatar className="w-20 h-20 md:w-32 md:h-32">
               <img src={profile.avatar} alt={profile.name} className="object-cover" />
             </Avatar>
             
-            <div className="flex-1 text-center md:text-left">
-              <div className="flex flex-col md:flex-row items-center gap-4 mb-4">
-                <h1 className="text-2xl font-bold">{profile.username}</h1>
-                <div className="flex gap-2">
-                  <Button>Edit Profile</Button>
-                  <Button variant="outline" size="icon">
-                    <Settings className="h-4 w-4" />
-                  </Button>
+            <div className="flex-1 ml-8">
+              <div className="flex justify-between gap-4 text-center">
+                <div>
+                  <div className="font-semibold">{profile.posts}</div>
+                  <div className="text-sm text-muted-foreground">posts</div>
                 </div>
-              </div>
-              
-              <div className="flex justify-center md:justify-start gap-8 mb-4">
-                <div className="text-center">
-                  <div className="font-bold">{profile.posts}</div>
-                  <div className="text-sm text-muted-foreground">Posts</div>
+                <div>
+                  <div className="font-semibold">{profile.followers}</div>
+                  <div className="text-sm text-muted-foreground">followers</div>
                 </div>
-                <div className="text-center">
-                  <div className="font-bold">{profile.followers}</div>
-                  <div className="text-sm text-muted-foreground">Followers</div>
+                <div>
+                  <div className="font-semibold">{profile.following}</div>
+                  <div className="text-sm text-muted-foreground">following</div>
                 </div>
-                <div className="text-center">
-                  <div className="font-bold">{profile.following}</div>
-                  <div className="text-sm text-muted-foreground">Following</div>
-                </div>
-              </div>
-              
-              <div className="space-y-2">
-                <h2 className="font-bold">{profile.name}</h2>
-                <p className="text-sm">{profile.bio}</p>
-                <a href={profile.website} className="text-sm text-blue-500 hover:underline">
-                  {profile.website}
-                </a>
               </div>
             </div>
           </div>
 
-          {/* Profile Content */}
+          {/* Bio */}
+          <div className="px-4 mb-6">
+            <div className="font-semibold mb-1">{profile.name}</div>
+            <p className="text-sm whitespace-pre-line">{profile.bio}</p>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex gap-2 px-4 mb-6">
+            <Button className="flex-1" variant="outline">Edit profile</Button>
+            <Button className="flex-1" variant="outline">Share profile</Button>
+            <Button size="icon" variant="outline">
+              <UserPlus className="h-4 w-4" />
+            </Button>
+          </div>
+
+          {/* Discover People */}
+          <div className="mb-6">
+            <div className="px-4 flex justify-between items-center mb-4">
+              <h2 className="font-semibold">Discover people</h2>
+              <Button variant="link" className="text-blue-500">See all</Button>
+            </div>
+            <div className="flex gap-4 overflow-x-auto px-4">
+              {suggestedUsers.map((user) => (
+                <Card key={user.id} className="flex-none w-[150px] p-4">
+                  <div className="flex flex-col items-center text-center gap-2">
+                    <Avatar className="w-16 h-16">
+                      <img src={user.avatar} alt={user.username} className="object-cover" />
+                    </Avatar>
+                    <div className="font-semibold text-sm">{user.username}</div>
+                    <div className="text-xs text-muted-foreground">{user.subtitle}</div>
+                    <Button className="w-full" variant="default">Follow</Button>
+                  </div>
+                </Card>
+              ))}
+            </div>
+          </div>
+
+          {/* Posts Grid */}
           <Tabs defaultValue="posts" className="w-full">
-            <TabsList className="w-full justify-start">
-              <TabsTrigger value="posts" className="flex items-center gap-2">
+            <TabsList className="w-full justify-center border-t">
+              <TabsTrigger value="posts" className="flex items-center gap-2 flex-1">
                 <Grid3X3 className="h-4 w-4" />
-                <span>Posts</span>
               </TabsTrigger>
-              <TabsTrigger value="saved" className="flex items-center gap-2">
+              <TabsTrigger value="reels" className="flex items-center gap-2 flex-1">
                 <BookMarked className="h-4 w-4" />
-                <span>Saved</span>
+              </TabsTrigger>
+              <TabsTrigger value="tagged" className="flex items-center gap-2 flex-1">
+                <Share2 className="h-4 w-4" />
               </TabsTrigger>
             </TabsList>
             <TabsContent value="posts">
@@ -117,9 +166,14 @@ const Profile = () => {
                 ))}
               </div>
             </TabsContent>
-            <TabsContent value="saved">
+            <TabsContent value="reels">
               <div className="text-center py-8 text-muted-foreground">
-                No saved posts yet
+                No reels yet
+              </div>
+            </TabsContent>
+            <TabsContent value="tagged">
+              <div className="text-center py-8 text-muted-foreground">
+                No tagged posts
               </div>
             </TabsContent>
           </Tabs>
