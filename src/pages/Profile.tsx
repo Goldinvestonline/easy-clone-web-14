@@ -6,6 +6,7 @@ import { Grid3X3, BookMarked, Share2, UserPlus, X } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
 import { ProfileSettingsMenu } from "@/components/ProfileSettingsMenu"
+import { ReelsView } from "@/components/ReelsView"
 
 const Profile = () => {
   const profile = {
@@ -52,6 +53,17 @@ const Profile = () => {
       likes: 89,
       comments: 5,
     },
+  ]
+
+  const reels = [
+    {
+      id: "1",
+      videoUrl: "https://example.com/reel1.mp4", // Replace with actual video URL
+      caption: "Check out my latest reel! #football #mancity",
+      author: "city_guy32",
+      likes: 245,
+      comments: 12
+    }
   ]
 
   return (
@@ -159,6 +171,7 @@ const Profile = () => {
                 <Share2 className="h-6 w-6" />
               </TabsTrigger>
             </TabsList>
+            
             <TabsContent value="posts">
               <div className="grid grid-cols-3 gap-[1px] bg-border -mx-4">
                 {posts.map((post) => (
@@ -181,9 +194,7 @@ const Profile = () => {
               </div>
             </TabsContent>
             <TabsContent value="reels">
-              <div className="text-center py-8 text-muted-foreground">
-                No reels yet
-              </div>
+              <ReelsView reels={reels} />
             </TabsContent>
             <TabsContent value="tagged">
               <div className="text-center py-8 text-muted-foreground">
