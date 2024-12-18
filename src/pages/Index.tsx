@@ -4,6 +4,7 @@ import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 import { Stories } from "@/components/Stories"
 import { Heart, MessageCircle } from "lucide-react"
+import { useEffect, useState } from "react"
 
 const posts = [
   {
@@ -51,11 +52,31 @@ const posts = [
 ]
 
 const Index = () => {
+  const [isVisible, setIsVisible] = useState(true)
+  const [lastScrollY, setLastScrollY] = useState(0)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY
+      
+      if (currentScrollY > lastScrollY) {
+        setIsVisible(false)
+      } else {
+        setIsVisible(true)
+      }
+      
+      setLastScrollY(currentScrollY)
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [lastScrollY])
+
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background relative">
         {/* Top Bar */}
-        <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center">
+        <div className={`fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center transition-transform duration-300 ${!isVisible ? '-translate-y-full' : 'translate-y-0'}`}>
           <img 
             src="/lovable-uploads/7e62851e-305a-4cdd-9f11-e4b956decfd1.png" 
             alt="Pearl Fans Logo" 
