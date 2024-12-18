@@ -2,12 +2,11 @@ import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Grid3X3, BookMarked, Settings, Share2, UserPlus } from "lucide-react"
+import { Grid3X3, BookMarked, Settings, Share2, UserPlus, X } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
 
 const Profile = () => {
-  // This would come from auth/database in a real app
   const profile = {
     username: "city_guy32",
     name: "City_guy",
@@ -18,7 +17,6 @@ const Profile = () => {
     following: 223,
   }
 
-  // Sample suggested users
   const suggestedUsers = [
     {
       id: 1,
@@ -40,7 +38,6 @@ const Profile = () => {
     }
   ]
 
-  // Sample posts data
   const posts = [
     {
       id: 1,
@@ -60,96 +57,113 @@ const Profile = () => {
     <div className="md:flex min-h-screen bg-background">
       <MainSidebar />
       <main className="flex-1 pb-16 md:pb-0">
-        <div className="container max-w-2xl mx-auto">
-          {/* Profile Header - Mobile Friendly */}
+        {/* Mobile Header */}
+        <div className="sticky top-0 z-50 bg-background border-b">
           <div className="flex items-center justify-between p-4">
-            <h1 className="text-lg font-semibold">{profile.username}</h1>
-            <Button variant="ghost" size="icon">
-              <Settings className="h-5 w-5" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <h1 className="text-xl font-semibold">{profile.username}</h1>
+            </div>
+            <div className="flex items-center gap-4">
+              <Button variant="ghost" size="icon" className="h-9 w-9">
+                <Settings className="h-6 w-6" />
+              </Button>
+            </div>
           </div>
+        </div>
 
-          {/* Profile Info - Responsive Layout */}
-          <div className="px-4 mb-6">
-            <div className="flex flex-col md:flex-row md:items-center gap-6">
-              <Avatar className="w-20 h-20 md:w-32 md:h-32">
-                <img src={profile.avatar} alt={profile.name} className="object-cover" />
-              </Avatar>
-              
-              <div className="flex-1">
-                {/* Stats - Mobile Grid */}
-                <div className="grid grid-cols-3 gap-4 text-center py-3 border-y md:border-none">
-                  <div>
-                    <div className="font-semibold">{profile.posts}</div>
-                    <div className="text-sm text-muted-foreground">posts</div>
-                  </div>
-                  <div>
-                    <div className="font-semibold">{profile.followers}</div>
-                    <div className="text-sm text-muted-foreground">followers</div>
-                  </div>
-                  <div>
-                    <div className="font-semibold">{profile.following}</div>
-                    <div className="text-sm text-muted-foreground">following</div>
-                  </div>
-                </div>
+        <div className="px-4">
+          {/* Profile Info Section */}
+          <div className="flex items-center gap-8 py-4">
+            <Avatar className="h-20 w-20">
+              <img src={profile.avatar} alt={profile.name} className="object-cover" />
+            </Avatar>
+            
+            {/* Stats */}
+            <div className="flex flex-1 justify-around text-center">
+              <div>
+                <div className="font-semibold">{profile.posts}</div>
+                <div className="text-sm text-muted-foreground">posts</div>
+              </div>
+              <div>
+                <div className="font-semibold">{profile.followers}</div>
+                <div className="text-sm text-muted-foreground">followers</div>
+              </div>
+              <div>
+                <div className="font-semibold">{profile.following}</div>
+                <div className="text-sm text-muted-foreground">following</div>
               </div>
             </div>
           </div>
 
-          {/* Bio - Better Spacing */}
-          <div className="px-4 mb-4">
-            <div className="font-semibold mb-1">{profile.name}</div>
+          {/* Bio */}
+          <div className="py-2">
+            <div className="font-semibold">{profile.name}</div>
             <p className="text-sm whitespace-pre-line">{profile.bio}</p>
           </div>
 
-          {/* Action Buttons - Stack on Mobile */}
-          <div className="flex flex-col md:flex-row gap-2 px-4 mb-6">
-            <Button className="flex-1" variant="outline">Edit profile</Button>
-            <Button className="flex-1" variant="outline">Share profile</Button>
-            <Button size="icon" variant="outline" className="hidden md:flex">
+          {/* Action Buttons */}
+          <div className="flex gap-2 py-3">
+            <Button variant="outline" className="flex-1 bg-background">
+              Edit profile
+            </Button>
+            <Button variant="outline" className="flex-1 bg-background">
+              Share profile
+            </Button>
+            <Button variant="outline" size="icon" className="bg-background">
               <UserPlus className="h-4 w-4" />
             </Button>
           </div>
 
-          {/* Discover People - Horizontal Scroll */}
-          <div className="mb-6">
-            <div className="px-4 flex justify-between items-center mb-4">
+          {/* Discover People */}
+          <div className="py-4">
+            <div className="flex justify-between items-center mb-4">
               <h2 className="font-semibold">Discover people</h2>
-              <Button variant="link" className="text-blue-500">See all</Button>
+              <Button variant="link" className="text-blue-600 font-semibold p-0">
+                See all
+              </Button>
             </div>
-            <div className="flex gap-4 overflow-x-auto px-4 pb-2 no-scrollbar">
+            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4">
               {suggestedUsers.map((user) => (
-                <Card key={user.id} className="flex-none w-[150px] p-4">
+                <Card key={user.id} className="flex-none w-[150px] p-3 relative">
+                  <Button 
+                    size="icon"
+                    variant="ghost"
+                    className="absolute right-2 top-2 h-6 w-6"
+                  >
+                    <X className="h-4 w-4" />
+                  </Button>
                   <div className="flex flex-col items-center text-center gap-2">
-                    <Avatar className="w-16 h-16">
+                    <Avatar className="h-14 w-14">
                       <img src={user.avatar} alt={user.username} className="object-cover" />
                     </Avatar>
                     <div className="font-semibold text-sm">{user.username}</div>
                     <div className="text-xs text-muted-foreground">{user.subtitle}</div>
-                    <Button className="w-full" variant="default">Follow</Button>
+                    <Button className="w-full" variant="default">
+                      Follow
+                    </Button>
                   </div>
                 </Card>
               ))}
             </div>
           </div>
 
-          {/* Posts Grid - Responsive */}
+          {/* Posts Tabs */}
           <Tabs defaultValue="posts" className="w-full">
-            <TabsList className="w-full justify-center border-t">
-              <TabsTrigger value="posts" className="flex-1">
-                <Grid3X3 className="h-4 w-4" />
+            <TabsList className="w-full justify-around border-y rounded-none bg-transparent h-12">
+              <TabsTrigger value="posts" className="flex-1 data-[state=active]:bg-transparent">
+                <Grid3X3 className="h-6 w-6" />
               </TabsTrigger>
-              <TabsTrigger value="reels" className="flex-1">
-                <BookMarked className="h-4 w-4" />
+              <TabsTrigger value="reels" className="flex-1 data-[state=active]:bg-transparent">
+                <BookMarked className="h-6 w-6" />
               </TabsTrigger>
-              <TabsTrigger value="tagged" className="flex-1">
-                <Share2 className="h-4 w-4" />
+              <TabsTrigger value="tagged" className="flex-1 data-[state=active]:bg-transparent">
+                <Share2 className="h-6 w-6" />
               </TabsTrigger>
             </TabsList>
             <TabsContent value="posts">
-              <div className="grid grid-cols-3 gap-[2px]">
+              <div className="grid grid-cols-3 gap-[1px] bg-border -mx-4">
                 {posts.map((post) => (
-                  <Card key={post.id} className="aspect-square relative group overflow-hidden">
+                  <div key={post.id} className="aspect-square relative group">
                     <img 
                       src={post.image} 
                       alt="Post" 
@@ -163,7 +177,7 @@ const Profile = () => {
                         <span>💬</span> {post.comments}
                       </div>
                     </div>
-                  </Card>
+                  </div>
                 ))}
               </div>
             </TabsContent>
