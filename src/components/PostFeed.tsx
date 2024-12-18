@@ -67,7 +67,7 @@ export const PostFeed = () => {
     queryKey: ['posts'],
     queryFn: getPosts,
     getNextPageParam: (lastPage) => lastPage.hasMore ? lastPage.nextPage : undefined,
-    initialData: undefined
+    initialPageParam: 1
   })
 
   useEffect(() => {
