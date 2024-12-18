@@ -4,6 +4,7 @@ import { TooltipProvider } from "@/components/ui/tooltip"
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import Index from "./pages/Index"
+import Profile from "./pages/Profile"
 
 const queryClient = new QueryClient()
 
@@ -19,7 +20,7 @@ const App = () => (
           <Route path="/create" element={<div>Create post page coming soon</div>} />
           <Route path="/messages" element={<div>Messages page coming soon</div>} />
           <Route path="/notifications" element={<div>Notifications page coming soon</div>} />
-          <Route path="/profile" element={<div>Profile page coming soon</div>} />
+          <Route path="/profile" element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
