@@ -8,6 +8,7 @@ import { ReelsView } from "@/components/ReelsView"
 import { ProfilePicture } from "@/components/ProfilePicture"
 import { ProfileStats } from "@/components/ProfileStats"
 import { SuggestedUsers } from "@/components/SuggestedUsers"
+import { PostFeed } from "@/components/PostFeed"
 
 const Profile = () => {
   const profile = {
@@ -73,7 +74,6 @@ const Profile = () => {
     <div className="md:flex min-h-screen bg-background">
       <MainSidebar />
       <main className="flex-1 pb-16 md:pb-0">
-        {/* Mobile Header */}
         <div className="sticky top-0 z-50 bg-background border-b">
           <div className="flex items-center justify-between p-4">
             <div className="flex items-center gap-2">
@@ -86,7 +86,6 @@ const Profile = () => {
         </div>
 
         <div className="px-4">
-          {/* Profile Info Section */}
           <div className="flex items-center gap-8 py-4">
             <ProfilePicture 
               initialImage={profile.avatar} 
@@ -135,25 +134,7 @@ const Profile = () => {
             </TabsList>
             
             <TabsContent value="posts">
-              <div className="grid grid-cols-3 gap-[1px] bg-border -mx-4">
-                {posts.map((post) => (
-                  <div key={post.id} className="aspect-square relative group">
-                    <img 
-                      src={post.image} 
-                      alt="Post" 
-                      className="object-cover w-full h-full"
-                    />
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white gap-4">
-                      <div className="flex items-center gap-1">
-                        <span>❤️</span> {post.likes}
-                      </div>
-                      <div className="flex items-center gap-1">
-                        <span>💬</span> {post.comments}
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <PostFeed />
             </TabsContent>
             <TabsContent value="reels">
               <ReelsView reels={reels} />
