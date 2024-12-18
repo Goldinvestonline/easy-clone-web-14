@@ -6,7 +6,7 @@ import { Grid3X3, BookMarked, Share2, UserPlus, X } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
 import { ProfileSettingsMenu } from "@/components/ProfileSettingsMenu"
-import { MessagesView } from "@/components/MessagesView"
+import { ReelsView } from "@/components/ReelsView"
 
 const Profile = () => {
   const profile = {
@@ -55,16 +55,16 @@ const Profile = () => {
     },
   ]
 
-  const messages = [
+  const reels = [
     {
       id: "1",
-      sender: {
-        name: "Sarah Auma",
-        avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah"
-      },
-      lastMessage: "Hey, how are you doing?",
-      timestamp: "2 min ago",
-      unread: true
+      videoUrl: "https://example.com/reel1.mp4",
+      caption: "Send this to the girl who doesn't need make up to look beautiful. #beauty #confidence",
+      author: "daily_quotes.211",
+      likes: 65700,
+      comments: 858,
+      audioTitle: "Original audio",
+      userAvatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=daily_quotes"
     }
   ]
 
@@ -166,7 +166,7 @@ const Profile = () => {
               <TabsTrigger value="posts" className="flex-1 data-[state=active]:bg-transparent">
                 <Grid3X3 className="h-6 w-6" />
               </TabsTrigger>
-              <TabsTrigger value="messages" className="flex-1 data-[state=active]:bg-transparent">
+              <TabsTrigger value="reels" className="flex-1 data-[state=active]:bg-transparent">
                 <BookMarked className="h-6 w-6" />
               </TabsTrigger>
               <TabsTrigger value="tagged" className="flex-1 data-[state=active]:bg-transparent">
@@ -195,8 +195,8 @@ const Profile = () => {
                 ))}
               </div>
             </TabsContent>
-            <TabsContent value="messages">
-              <MessagesView messages={messages} />
+            <TabsContent value="reels">
+              <ReelsView reels={reels} />
             </TabsContent>
             <TabsContent value="tagged">
               <div className="text-center py-8 text-muted-foreground">
