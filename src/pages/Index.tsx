@@ -57,7 +57,7 @@ const Index = () => {
         {/* Top Bar */}
         <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center">
           <img 
-            src="/lovable-uploads/912d172f-97a2-44eb-9157-887b1c7b75a1.png" 
+            src="/lovable-uploads/7e62851e-305a-4cdd-9f11-e4b956decfd1.png" 
             alt="Pearl Fans Logo" 
             className="h-16 w-auto"
           />
