@@ -9,6 +9,8 @@ import { ProfilePicture } from "@/components/ProfilePicture"
 import { ProfileStats } from "@/components/ProfileStats"
 import { SuggestedUsers } from "@/components/SuggestedUsers"
 import { PostFeed } from "@/components/PostFeed"
+import { SubscriptionTiers } from "@/components/SubscriptionTiers"
+import { CreateContent } from "@/components/CreateContent"
 
 const Profile = () => {
   const profile = {
@@ -119,30 +121,29 @@ const Profile = () => {
 
           <SuggestedUsers users={suggestedUsers} />
 
-          {/* Posts Tabs */}
           <Tabs defaultValue="posts" className="w-full">
             <TabsList className="w-full justify-around border-y rounded-none bg-transparent h-12">
-              <TabsTrigger value="posts" className="flex-1 data-[state=active]:bg-transparent">
+              <TabsTrigger value="posts">
                 <Grid3X3 className="h-6 w-6" />
               </TabsTrigger>
-              <TabsTrigger value="reels" className="flex-1 data-[state=active]:bg-transparent">
-                <BookMarked className="h-6 w-6" />
+              <TabsTrigger value="subscription">
+                <Lock className="h-6 w-6" />
               </TabsTrigger>
-              <TabsTrigger value="tagged" className="flex-1 data-[state=active]:bg-transparent">
-                <Share2 className="h-6 w-6" />
+              <TabsTrigger value="create">
+                <ImagePlus className="h-6 w-6" />
               </TabsTrigger>
             </TabsList>
             
             <TabsContent value="posts">
               <PostFeed />
             </TabsContent>
-            <TabsContent value="reels">
-              <ReelsView reels={reels} />
-            </TabsContent>
-            <TabsContent value="tagged">
-              <div className="text-center py-8 text-muted-foreground">
-                No tagged posts
+            <TabsContent value="subscription">
+              <div className="py-8">
+                <SubscriptionTiers />
               </div>
+            </TabsContent>
+            <TabsContent value="create">
+              <CreateContent />
             </TabsContent>
           </Tabs>
         </div>
