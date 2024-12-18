@@ -66,7 +66,7 @@ const Index = () => {
               <Heart className="h-6 w-6" />
             </button>
             <button className="hover:opacity-70 transition-opacity">
-              <MessageCircle className="h-6 w-6" />
+              <MessageCircle className="h-6 w-6 text-primary" />
             </button>
           </div>
         </div>
