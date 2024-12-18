@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Grid3X3, BookMarked, Share2, UserPlus } from "lucide-react"
+import { Grid3X3, BookMarked, Share2, UserPlus, Lock, ImagePlus } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
 import { ProfileSettingsMenu } from "@/components/ProfileSettingsMenu"
