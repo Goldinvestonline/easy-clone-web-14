@@ -8,26 +8,46 @@ import { Stories } from "@/components/Stories"
 const posts = [
   {
     author: {
-      name: "John Doe",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=John",
+      name: "Sarah Auma",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Sarah",
+      subscriptionType: 'hybrid' as const
     },
-    content: "Just launched my new project! Really excited to share it with everyone. 🚀",
+    content: "New dance video! 🎵 #dance #nairobi",
     image: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=800&auto=format&fit=crop",
     timestamp: "2 hours ago",
-    likes: 24,
-    comments: 5,
+    likes: 245,
+    comments: 12,
+    isPremium: true,
+    premiumPrice: 2.99,
+    isBlurred: true
   },
   {
     author: {
-      name: "Jane Smith",
-      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Jane",
+      name: "David Omondi",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=David",
+      subscriptionType: 'paid' as const
     },
-    content: "Beautiful day for coding! Working on some new features. ☀️💻",
+    content: "Latest comedy skit! 😂 #comedy #entertainment",
     image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?w=800&auto=format&fit=crop",
     timestamp: "4 hours ago",
-    likes: 15,
-    comments: 3,
+    likes: 892,
+    comments: 45,
+    isPremium: true,
+    isBlurred: true
   },
+  {
+    author: {
+      name: "Grace Muthoni",
+      avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=Grace",
+      subscriptionType: 'free' as const
+    },
+    content: "Beautiful sunset in Mombasa! 🌅 #travel #kenya",
+    image: "https://images.unsplash.com/photo-1494548162494-384bba4ab999?w=800&auto=format&fit=crop",
+    timestamp: "6 hours ago",
+    likes: 567,
+    comments: 23,
+    isPremium: false
+  }
 ]
 
 const Index = () => {
