@@ -53,7 +53,16 @@ const posts = [
 const Index = () => {
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-background">
+      <div className="flex min-h-screen w-full bg-background relative">
+        {/* Logo */}
+        <div className="absolute top-4 left-4 z-50">
+          <img 
+            src="/lovable-uploads/1530a3f7-da7d-4b15-b009-68dcd81602c7.png" 
+            alt="Pearl Jams Logo" 
+            className="h-8 w-auto"
+          />
+        </div>
+        
         <MainSidebar />
         <main className="flex-1 pb-20 md:pb-6">
           <div className="mx-auto max-w-2xl p-6">
