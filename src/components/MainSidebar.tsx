@@ -28,7 +28,7 @@ export function MainSidebar() {
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>
-            <span className="text-xl font-bold">Photogram</span>
+            <span className="text-xl font-bold">PearlFans</span>
           </SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
