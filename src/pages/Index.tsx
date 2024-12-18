@@ -3,8 +3,8 @@ import { MainSidebar } from "@/components/MainSidebar"
 import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 import { Stories } from "@/components/Stories"
+import { Heart, MessageCircle } from "lucide-react"
 
-// Sample data for demonstration
 const posts = [
   {
     author: {
@@ -54,17 +54,25 @@ const Index = () => {
   return (
     <SidebarProvider>
       <div className="flex min-h-screen w-full bg-background relative">
-        {/* Logo */}
-        <div className="absolute top-4 left-4 z-50">
+        {/* Top Bar */}
+        <div className="fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center">
           <img 
-            src="/lovable-uploads/1530a3f7-da7d-4b15-b009-68dcd81602c7.png" 
-            alt="Pearl Jams Logo" 
+            src="/lovable-uploads/ee89aa06-7641-4cae-add6-aa6964b2a634.png" 
+            alt="Instagram Logo" 
             className="h-8 w-auto"
           />
+          <div className="flex items-center gap-4">
+            <button className="hover:opacity-70 transition-opacity">
+              <Heart className="h-6 w-6" />
+            </button>
+            <button className="hover:opacity-70 transition-opacity">
+              <MessageCircle className="h-6 w-6" />
+            </button>
+          </div>
         </div>
         
         <MainSidebar />
-        <main className="flex-1 pb-20 md:pb-6">
+        <main className="flex-1 pb-20 md:pb-6 mt-14">
           <div className="mx-auto max-w-2xl p-6">
             <Stories />
             <div className="space-y-6">
