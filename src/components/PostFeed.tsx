@@ -63,11 +63,11 @@ export const PostFeed = () => {
     hasNextPage,
     isFetchingNextPage,
     status
-  } = useInfiniteQuery<PostsResponse>({
+  } = useInfiniteQuery({
     queryKey: ['posts'],
-    queryFn: ({ pageParam }) => getPosts({ pageParam }),
+    queryFn: getPosts,
     getNextPageParam: (lastPage) => lastPage.hasMore ? lastPage.nextPage : undefined,
-    initialPageSize: 5
+    initialData: undefined
   })
 
   useEffect(() => {
