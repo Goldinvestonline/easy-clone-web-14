@@ -1,12 +1,13 @@
-import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Grid3X3, BookMarked, Share2, UserPlus, X } from "lucide-react"
+import { Grid3X3, BookMarked, Share2, UserPlus } from "lucide-react"
 import { BottomNav } from "@/components/BottomNav"
 import { MainSidebar } from "@/components/MainSidebar"
 import { ProfileSettingsMenu } from "@/components/ProfileSettingsMenu"
 import { ReelsView } from "@/components/ReelsView"
+import { ProfilePicture } from "@/components/ProfilePicture"
+import { ProfileStats } from "@/components/ProfileStats"
+import { SuggestedUsers } from "@/components/SuggestedUsers"
 
 const Profile = () => {
   const profile = {
@@ -87,25 +88,15 @@ const Profile = () => {
         <div className="px-4">
           {/* Profile Info Section */}
           <div className="flex items-center gap-8 py-4">
-            <Avatar className="h-20 w-20">
-              <img src={profile.avatar} alt={profile.name} className="object-cover" />
-            </Avatar>
-            
-            {/* Stats */}
-            <div className="flex flex-1 justify-around text-center">
-              <div>
-                <div className="font-semibold">{profile.posts}</div>
-                <div className="text-sm text-muted-foreground">posts</div>
-              </div>
-              <div>
-                <div className="font-semibold">{profile.followers}</div>
-                <div className="text-sm text-muted-foreground">followers</div>
-              </div>
-              <div>
-                <div className="font-semibold">{profile.following}</div>
-                <div className="text-sm text-muted-foreground">following</div>
-              </div>
-            </div>
+            <ProfilePicture 
+              initialImage={profile.avatar} 
+              username={profile.username}
+            />
+            <ProfileStats 
+              posts={profile.posts}
+              followers={profile.followers}
+              following={profile.following}
+            />
           </div>
 
           {/* Bio */}
@@ -127,38 +118,7 @@ const Profile = () => {
             </Button>
           </div>
 
-          {/* Discover People */}
-          <div className="py-4">
-            <div className="flex justify-between items-center mb-4">
-              <h2 className="font-semibold">Discover people</h2>
-              <Button variant="link" className="text-blue-600 font-semibold p-0">
-                See all
-              </Button>
-            </div>
-            <div className="flex gap-3 overflow-x-auto no-scrollbar pb-4 -mx-4 px-4">
-              {suggestedUsers.map((user) => (
-                <Card key={user.id} className="flex-none w-[150px] p-3 relative">
-                  <Button 
-                    size="icon"
-                    variant="ghost"
-                    className="absolute right-2 top-2 h-6 w-6"
-                  >
-                    <X className="h-4 w-4" />
-                  </Button>
-                  <div className="flex flex-col items-center text-center gap-2">
-                    <Avatar className="h-14 w-14">
-                      <img src={user.avatar} alt={user.username} className="object-cover" />
-                    </Avatar>
-                    <div className="font-semibold text-sm">{user.username}</div>
-                    <div className="text-xs text-muted-foreground">{user.subtitle}</div>
-                    <Button className="w-full" variant="default">
-                      Follow
-                    </Button>
-                  </div>
-                </Card>
-              ))}
-            </div>
-          </div>
+          <SuggestedUsers users={suggestedUsers} />
 
           {/* Posts Tabs */}
           <Tabs defaultValue="posts" className="w-full">
