@@ -59,7 +59,7 @@ const Index = () => {
           <img 
             src="/lovable-uploads/912d172f-97a2-44eb-9157-887b1c7b75a1.png" 
             alt="Pearl Fans Logo" 
-            className="h-12 w-auto"
+            className="h-16 w-auto"
           />
           <div className="flex items-center gap-4">
             <button className="hover:opacity-70 transition-opacity">
