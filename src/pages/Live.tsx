@@ -3,14 +3,15 @@ import { useToast } from "@/components/ui/use-toast"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import AgoraRTC, { IAgoraRTCRemoteUser } from "agora-rtc-sdk-ng"
+import AgoraRTC from "agora-rtc-sdk-ng"
 import { 
   AgoraRTCProvider,
   useRTCClient,
-  useJoin,
+  useJoinClient,
   useLocalCameraTrack,
   useLocalMicrophoneTrack,
-  usePublish
+  usePublish,
+  type IAgoraRTCRemoteUser
 } from "agora-rtc-react"
 
 const client = AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })
@@ -27,13 +28,18 @@ const LiveStream = () => {
   
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack()
   const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack()
-  const { join, leave } = useJoin({
+  
+  const { 
+    isConnected,
+    join: joinChannel,
+    leave: leaveChannel
+  } = useJoinClient(agoraClient, {
     appid: "167ba6c3748b43b8b44e986a74823223",
     channel: channelName,
-    token: null, // Using null for testing mode
-    uid: Math.floor(Math.random() * 10000),
+    token: null // Using null for testing mode
   })
-  const { publish } = usePublish()
+
+  const { publish } = usePublish(agoraClient)
 
   const startCall = async () => {
     if (!channelName) {
@@ -47,7 +53,7 @@ const LiveStream = () => {
 
     try {
       if (localCameraTrack && localMicrophoneTrack) {
-        await join()
+        await joinChannel()
         await publish([localCameraTrack, localMicrophoneTrack])
         setInCall(true)
         toast({
@@ -67,7 +73,7 @@ const LiveStream = () => {
 
   const endCall = async () => {
     try {
-      await leave()
+      await leaveChannel()
       setInCall(false)
       setUsers([])
       toast({
