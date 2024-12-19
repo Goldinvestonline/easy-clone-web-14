@@ -7,7 +7,7 @@ import AgoraRTC from "agora-rtc-sdk-ng"
 import { 
   AgoraRTCProvider,
   useRTCClient,
-  useJoinClient,
+  useJoin,
   useLocalCameraTrack,
   useLocalMicrophoneTrack,
   usePublish,
@@ -29,11 +29,7 @@ const LiveStream = () => {
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack()
   const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack()
   
-  const { 
-    isConnected,
-    join: joinChannel,
-    leave: leaveChannel
-  } = useJoinClient(agoraClient, {
+  const { join, leave } = useJoin(agoraClient, {
     appid: "167ba6c3748b43b8b44e986a74823223",
     channel: channelName,
     token: null // Using null for testing mode
@@ -53,7 +49,7 @@ const LiveStream = () => {
 
     try {
       if (localCameraTrack && localMicrophoneTrack) {
-        await joinChannel()
+        await join()
         await publish([localCameraTrack, localMicrophoneTrack])
         setInCall(true)
         toast({
@@ -73,7 +69,7 @@ const LiveStream = () => {
 
   const endCall = async () => {
     try {
-      await leaveChannel()
+      await leave()
       setInCall(false)
       setUsers([])
       toast({
