@@ -1,7 +1,9 @@
 import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card } from "@/components/ui/card"
-import { Heart, MessageCircle, MoreHorizontal, Share2 } from "lucide-react"
+import { Heart, MessageCircle, MoreHorizontal, Share2, Bookmark, Send } from "lucide-react"
+import { useState } from "react"
+import { useToast } from "@/components/ui/use-toast"
 
 interface Author {
   name: string
@@ -26,11 +28,59 @@ export function PostCard({
   content,
   image,
   timestamp,
-  likes,
+  likes: initialLikes,
   comments,
   shares,
   hashtags
 }: PostCardProps) {
+  const [isLiked, setIsLiked] = useState(false)
+  const [likes, setLikes] = useState(initialLikes)
+  const [isSaved, setIsSaved] = useState(false)
+  const { toast } = useToast()
+
+  const handleLike = () => {
+    if (isLiked) {
+      setLikes(prev => prev - 1)
+    } else {
+      setLikes(prev => prev + 1)
+    }
+    setIsLiked(!isLiked)
+    console.log("Like toggled:", !isLiked)
+  }
+
+  const handleComment = () => {
+    toast({
+      title: "Comments",
+      description: "Opening comments section...",
+    })
+    console.log("Comment clicked")
+  }
+
+  const handleShare = () => {
+    toast({
+      title: "Share",
+      description: "Opening share options...",
+    })
+    console.log("Share clicked")
+  }
+
+  const handleSave = () => {
+    setIsSaved(!isSaved)
+    toast({
+      title: isSaved ? "Post removed from saved" : "Post saved",
+      description: isSaved ? "The post has been removed from your saved items" : "The post has been saved to your collection",
+    })
+    console.log("Save toggled:", !isSaved)
+  }
+
+  const handleSendDirect = () => {
+    toast({
+      title: "Send",
+      description: "Opening direct message...",
+    })
+    console.log("Send direct clicked")
+  }
+
   return (
     <Card className="overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm">
       <div className="p-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-700">
@@ -81,31 +131,57 @@ export function PostCard({
           <Button 
             variant="ghost" 
             size="sm" 
-            className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400"
+            className={`flex items-center gap-1 ${
+              isLiked 
+                ? "text-red-500 dark:text-red-400" 
+                : "text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400"
+            }`}
+            onClick={handleLike}
           >
-            <Heart className="h-5 w-5" />
+            <Heart className={`h-5 w-5 ${isLiked ? "fill-current" : ""}`} />
             <span className="text-xs font-medium">{likes}</span>
           </Button>
           <Button 
             variant="ghost" 
             size="sm" 
             className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+            onClick={handleComment}
           >
             <MessageCircle className="h-5 w-5" />
             <span className="text-xs font-medium">{comments}</span>
           </Button>
-          {shares !== undefined && (
-            <Button 
-              variant="ghost" 
-              size="sm" 
-              className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400"
-            >
-              <Share2 className="h-5 w-5" />
-              <span className="text-xs font-medium">{shares}</span>
-            </Button>
-          )}
+          <Button 
+            variant="ghost" 
+            size="sm" 
+            className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400"
+            onClick={handleShare}
+          >
+            <Share2 className="h-5 w-5" />
+            <span className="text-xs font-medium">{shares}</span>
+          </Button>
         </div>
-        <span className="text-xs text-gray-500 dark:text-gray-400">{timestamp}</span>
+        <div className="flex items-center gap-2">
+          <Button
+            variant="ghost"
+            size="sm"
+            className={`flex items-center gap-1 ${
+              isSaved 
+                ? "text-yellow-500 dark:text-yellow-400" 
+                : "text-gray-600 dark:text-gray-300 hover:text-yellow-500 dark:hover:text-yellow-400"
+            }`}
+            onClick={handleSave}
+          >
+            <Bookmark className={`h-5 w-5 ${isSaved ? "fill-current" : ""}`} />
+          </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+            onClick={handleSendDirect}
+          >
+            <Send className="h-5 w-5" />
+          </Button>
+        </div>
       </div>
     </Card>
   )
