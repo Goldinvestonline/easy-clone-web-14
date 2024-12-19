@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import Index from "./pages/Index"
 import Profile from "./pages/Profile"
+import Live from "./pages/Live"
 
 const queryClient = new QueryClient()
 
@@ -24,6 +25,7 @@ const App = () => (
               <Route path="/messages" element={<div>Messages page coming soon</div>} />
               <Route path="/notifications" element={<div>Notifications page coming soon</div>} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/live" element={<Live />} />
             </Routes>
           </BrowserRouter>
         </div>
