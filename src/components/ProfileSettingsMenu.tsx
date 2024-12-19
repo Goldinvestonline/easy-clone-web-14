@@ -25,13 +25,14 @@ import {
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { CreatorOnboardingForm } from "./CreatorOnboardingForm"
+import { useToast } from "@/hooks/use-toast"
 
 export function ProfileSettingsMenu() {
   const [isDark, setIsDark] = useState(false)
   const [showCreatorDialog, setShowCreatorDialog] = useState(false)
+  const { toast } = useToast()
 
   useEffect(() => {
-    // Check if dark mode is already enabled
     if (document.documentElement.classList.contains('dark')) {
       setIsDark(true)
     }
@@ -41,6 +42,14 @@ export function ProfileSettingsMenu() {
     const newIsDark = !isDark
     setIsDark(newIsDark)
     document.documentElement.classList.toggle('dark')
+  }
+
+  const handleCreatorSignup = () => {
+    setShowCreatorDialog(true)
+    toast({
+      title: "Welcome!",
+      description: "Let's set up your creator profile.",
+    })
   }
 
   return (
@@ -72,7 +81,7 @@ export function ProfileSettingsMenu() {
           </DropdownMenuItem>
           <DropdownMenuItem 
             className="gap-2 h-11"
-            onSelect={() => setShowCreatorDialog(true)}
+            onSelect={handleCreatorSignup}
           >
             <Building2 className="h-5 w-5" />
             <span>Become a creator</span>
