@@ -1,143 +1,104 @@
-import { Card, CardContent, CardFooter, CardHeader } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
 import { Avatar } from "@/components/ui/avatar"
-import { Heart, MessageCircle, Share2, Bookmark, Lock } from "lucide-react"
-import { useState } from "react"
-import { useToast } from "@/components/ui/use-toast"
+import { Button } from "@/components/ui/button"
+import { Card } from "@/components/ui/card"
+import { Heart, MessageCircle, MoreHorizontal, Share2 } from "lucide-react"
+
+interface Author {
+  name: string
+  avatar: string
+  verified?: boolean
+  username?: string
+}
 
 interface PostCardProps {
-  author: {
-    name: string
-    avatar: string
-    subscriptionType: 'free' | 'paid' | 'hybrid'
-  }
+  author: Author
   content: string
   image?: string
   timestamp: string
   likes: number
   comments: number
-  isPremium?: boolean
-  premiumPrice?: number
-  isBlurred?: boolean
+  shares?: number
+  hashtags?: string[]
 }
 
-export function PostCard({ 
-  author, 
-  content, 
-  image, 
-  timestamp, 
-  likes: initialLikes, 
+export function PostCard({
+  author,
+  content,
+  image,
+  timestamp,
+  likes,
   comments,
-  isPremium,
-  premiumPrice,
-  isBlurred 
+  shares,
+  hashtags
 }: PostCardProps) {
-  const [liked, setLiked] = useState(false)
-  const [likes, setLikes] = useState(initialLikes)
-  const [saved, setSaved] = useState(false)
-  const { toast } = useToast()
-
-  const handleLike = () => {
-    if (isBlurred) {
-      toast({
-        title: "Premium Content",
-        description: `Subscribe to ${author.name} or purchase this post to interact with it.`,
-      })
-      return
-    }
-
-    if (liked) {
-      setLikes(likes - 1)
-    } else {
-      setLikes(likes + 1)
-    }
-    setLiked(!liked)
-  }
-
   return (
-    <Card className="mb-6 max-w-xl mx-auto relative">
-      {isPremium && (
-        <div className="absolute top-2 right-2 z-10 bg-yellow-500 text-white px-2 py-1 rounded-full text-xs font-medium flex items-center gap-1">
-          <Lock className="w-3 h-3" />
-          Premium
-          {premiumPrice && ` • $${premiumPrice}`}
+    <Card className="overflow-hidden bg-white">
+      {/* Header */}
+      <div className="p-4 flex items-center justify-between">
+        <div className="flex items-center gap-3">
+          <Avatar className="h-10 w-10">
+            <img src={author.avatar} alt={author.name} className="object-cover" />
+          </Avatar>
+          <div className="flex flex-col">
+            <div className="flex items-center gap-1">
+              <span className="font-semibold">{author.name}</span>
+              {author.verified && (
+                <svg className="h-4 w-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              )}
+            </div>
+            {author.username && (
+              <span className="text-sm text-gray-500">@{author.username}</span>
+            )}
+          </div>
+        </div>
+        <Button variant="ghost" size="icon">
+          <MoreHorizontal className="h-5 w-5" />
+        </Button>
+      </div>
+
+      {/* Content */}
+      <div className="px-4 pb-3">
+        <p className="text-sm">{content}</p>
+        {hashtags && (
+          <div className="mt-2 flex flex-wrap gap-2">
+            {hashtags.map((tag) => (
+              <span key={tag} className="text-blue-500 text-sm">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {/* Image */}
+      {image && (
+        <div className="relative aspect-square">
+          <img src={image} alt="Post content" className="w-full h-full object-cover" />
         </div>
       )}
-      
-      <CardHeader className="flex flex-row items-center gap-4 p-4">
-        <Avatar className="h-10 w-10">
-          <img src={author.avatar} alt={author.name} className="object-cover" />
-        </Avatar>
-        <div className="flex-1">
-          <h3 className="font-semibold">{author.name}</h3>
-          <p className="text-sm text-muted-foreground">{timestamp}</p>
-        </div>
-      </CardHeader>
 
-      {image && (
-        <div className={`relative aspect-square ${isBlurred ? 'blur-lg' : ''}`}>
-          <img src={image} alt="Post" className="object-cover w-full h-full" />
-          {isBlurred && (
-            <div className="absolute inset-0 flex items-center justify-center">
-              <Button 
-                variant="secondary"
-                className="bg-black/50 text-white hover:bg-black/60"
-                onClick={() => {
-                  toast({
-                    title: "Premium Content",
-                    description: premiumPrice 
-                      ? `Purchase this post for $${premiumPrice} to view it.`
-                      : `Subscribe to ${author.name} to view their content.`,
-                  })
-                }}
-              >
-                <Lock className="w-4 h-4 mr-2" />
-                {premiumPrice ? `Unlock for $${premiumPrice}` : 'Subscribe to View'}
-              </Button>
-            </div>
+      {/* Footer */}
+      <div className="p-4 flex items-center justify-between border-t">
+        <div className="flex items-center gap-6">
+          <Button variant="ghost" size="sm" className="flex items-center gap-2">
+            <Heart className="h-5 w-5" />
+            <span>{likes}</span>
+          </Button>
+          <Button variant="ghost" size="sm" className="flex items-center gap-2">
+            <MessageCircle className="h-5 w-5" />
+            <span>{comments}</span>
+          </Button>
+          {shares !== undefined && (
+            <Button variant="ghost" size="sm" className="flex items-center gap-2">
+              <Share2 className="h-5 w-5" />
+              <span>{shares}</span>
+            </Button>
           )}
         </div>
-      )}
-
-      <CardContent className={`p-4 ${isBlurred ? 'blur-lg' : ''}`}>
-        <p className="text-sm">{content}</p>
-      </CardContent>
-
-      <CardFooter className="flex justify-between p-4 pt-0">
-        <div className="flex gap-4">
-          <Button 
-            variant="ghost" 
-            size="sm" 
-            className="gap-2"
-            onClick={handleLike}
-          >
-            <Heart className={`h-5 w-5 ${liked ? 'fill-red-500 text-red-500' : ''}`} />
-            {likes}
-          </Button>
-          <Button variant="ghost" size="sm" className="gap-2">
-            <MessageCircle className="h-5 w-5" /> {comments}
-          </Button>
-          <Button variant="ghost" size="sm">
-            <Share2 className="h-5 w-5" />
-          </Button>
-        </div>
-        <Button 
-          variant="ghost" 
-          size="sm"
-          onClick={() => {
-            if (isBlurred) {
-              toast({
-                title: "Premium Content",
-                description: `Subscribe to ${author.name} or purchase this post to save it.`,
-              })
-              return
-            }
-            setSaved(!saved)
-          }}
-        >
-          <Bookmark className={`h-5 w-5 ${saved ? 'fill-current' : ''}`} />
-        </Button>
-      </CardFooter>
+        <span className="text-sm text-gray-500">{timestamp}</span>
+      </div>
     </Card>
   )
 }

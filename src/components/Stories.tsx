@@ -1,78 +1,56 @@
 import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Pencil } from "lucide-react"
 
 interface Story {
   username: string
   avatar: string
-  image: string
-  verified?: boolean
+  isLive?: boolean
 }
 
 const stories: Story[] = [
   {
-    username: "LOLA BUN...",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=lola",
-    image: "/lovable-uploads/9d143ddb-c1ee-401e-b3f2-1a9381e95024.png",
-    verified: true
+    username: "Irma",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=irma",
+    isLive: true
   },
   {
-    username: "Ebony Ta...",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=ebony",
-    image: "/lovable-uploads/9d143ddb-c1ee-401e-b3f2-1a9381e95024.png",
-    verified: true
+    username: "Amanda",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=amanda"
   },
   {
-    username: "Amara ...",
-    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=amara",
-    image: "/lovable-uploads/9d143ddb-c1ee-401e-b3f2-1a9381e95024.png",
-    verified: true
+    username: "Luiz",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=luiz"
+  },
+  {
+    username: "Nina",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=nina"
+  },
+  {
+    username: "Izaa",
+    avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=izaa"
   },
 ]
 
 export function Stories() {
   return (
-    <div className="w-full space-y-4 py-4 border-b">
-      <div className="flex items-center gap-2 px-4">
-        <Tabs defaultValue="all" className="flex-1">
-          <TabsList className="h-9 w-fit bg-muted/50">
-            <TabsTrigger value="all" className="text-base px-6">
-              All
-            </TabsTrigger>
-          </TabsList>
-        </Tabs>
-        <Button variant="ghost" size="icon" className="h-9 w-9">
-          <Pencil className="h-5 w-5" />
-        </Button>
-      </div>
-
-      <div className="grid grid-cols-3 gap-2 px-4">
+    <div className="w-full py-4 px-4 border-b">
+      <div className="flex gap-4 overflow-x-auto no-scrollbar">
         {stories.map((story, index) => (
-          <div key={index} className="relative aspect-[3/4] rounded-lg overflow-hidden cursor-pointer group">
-            <img 
-              src={story.image} 
-              alt={story.username} 
-              className="w-full h-full object-cover"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-black/60" />
-            <div className="absolute bottom-3 left-3 right-3">
-              <div className="flex items-center gap-2">
-                <Avatar className="h-8 w-8 border-2 border-white">
-                  <img src={story.avatar} alt={story.username} />
+          <div key={index} className="flex flex-col items-center gap-1 min-w-[72px]">
+            <div className="relative">
+              <div className={`${story.isLive ? 'p-[2px] bg-gradient-to-tr from-pink-500 to-orange-500 rounded-full' : ''}`}>
+                <Avatar className="h-16 w-16 border-2 border-white">
+                  <img src={story.avatar} alt={story.username} className="object-cover" />
                 </Avatar>
-                <div className="flex items-center gap-1">
-                  <span className="text-white font-semibold text-sm">
-                    {story.username}
-                  </span>
-                  {story.verified && (
-                    <svg className="h-4 w-4 text-white" viewBox="0 0 24 24" fill="currentColor">
-                      <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                    </svg>
-                  )}
-                </div>
               </div>
+              {story.isLive && (
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-red-500 text-white text-xs px-2 rounded-full">
+                  Live
+                </span>
+              )}
             </div>
+            <span className="text-xs text-center truncate w-full">{story.username}</span>
           </div>
         ))}
       </div>
