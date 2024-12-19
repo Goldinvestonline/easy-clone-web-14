@@ -2,7 +2,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 import { Stories } from "@/components/Stories"
-import { Heart } from "lucide-react"
+import { Bell } from "lucide-react"
 
 const posts = [
   {
@@ -64,7 +64,7 @@ const Index = () => {
           </div>
           <div className="flex items-center gap-4">
             <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
-              <Heart className="h-6 w-6 text-gray-600 dark:text-gray-300" />
+              <Bell className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
         </div>
