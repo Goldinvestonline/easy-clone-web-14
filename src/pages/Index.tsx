@@ -77,7 +77,14 @@ const Index = () => {
       <div className="flex min-h-screen w-full bg-background relative">
         {/* Top Bar */}
         <div className={`fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center transition-transform duration-300 ${!isVisible ? '-translate-y-full' : 'translate-y-0'}`}>
-          <span className="text-2xl font-bold">Babagang</span>
+          <div className="flex items-center gap-2">
+            <img 
+              src="/lovable-uploads/103e6a11-94f2-45bc-b121-92dc0f12fb5d.png" 
+              alt="PEARL FANS" 
+              className="h-8"
+            />
+            <span className="text-2xl font-bold">PEARL FANS</span>
+          </div>
           <div className="flex items-center gap-4">
             <button className="hover:opacity-70 transition-opacity">
               <Heart className="h-6 w-6" />
