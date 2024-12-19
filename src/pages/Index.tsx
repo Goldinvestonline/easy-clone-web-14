@@ -81,7 +81,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/103e6a11-94f2-45bc-b121-92dc0f12fb5d.png" 
               alt="PEARL FANS" 
-              className="h-12"
+              className="h-16 md:h-20 object-contain hover:scale-105 transition-transform duration-300"
             />
           </div>
           <div className="flex items-center gap-4">
