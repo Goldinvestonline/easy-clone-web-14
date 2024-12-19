@@ -58,13 +58,11 @@ const Index = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY
-      
       if (currentScrollY > lastScrollY) {
         setIsVisible(false)
       } else {
         setIsVisible(true)
       }
-      
       setLastScrollY(currentScrollY)
     }
 
@@ -74,9 +72,13 @@ const Index = () => {
 
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-background relative">
+      <div className="flex min-h-screen w-full bg-gray-50 dark:bg-gray-900 relative">
         {/* Top Bar */}
-        <div className={`fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center transition-transform duration-300 ${!isVisible ? '-translate-y-full' : 'translate-y-0'}`}>
+        <div 
+          className={`fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2 flex justify-between items-center transition-transform duration-300 shadow-sm ${
+            !isVisible ? '-translate-y-full' : 'translate-y-0'
+          }`}
+        >
           <div className="flex items-center gap-2">
             <img 
               src="/lovable-uploads/103e6a11-94f2-45bc-b121-92dc0f12fb5d.png" 
@@ -85,20 +87,20 @@ const Index = () => {
             />
           </div>
           <div className="flex items-center gap-4">
-            <button className="hover:opacity-70 transition-opacity">
-              <Heart className="h-6 w-6" />
+            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <Heart className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </button>
-            <button className="hover:opacity-70 transition-opacity">
-              <MessageCircle className="h-6 w-6" />
+            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+              <MessageCircle className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
         </div>
         
         <MainSidebar />
-        <main className="flex-1 pb-20 md:pb-6 mt-14">
-          <div className="mx-auto max-w-2xl">
+        <main className="flex-1 pb-20 md:pb-6 mt-24 md:mt-28">
+          <div className="mx-auto max-w-2xl bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
             <Stories />
-            <div className="p-4 space-y-4">
+            <div className="p-4 space-y-6">
               {posts.map((post, index) => (
                 <PostCard key={index} {...post} />
               ))}

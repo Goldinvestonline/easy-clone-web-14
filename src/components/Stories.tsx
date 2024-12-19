@@ -34,23 +34,29 @@ const stories: Story[] = [
 
 export function Stories() {
   return (
-    <div className="w-full py-4 px-4 border-b">
-      <div className="flex gap-4 overflow-x-auto no-scrollbar">
+    <div className="w-full py-6 px-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <div className="flex gap-6 overflow-x-auto no-scrollbar">
         {stories.map((story, index) => (
-          <div key={index} className="flex flex-col items-center gap-1 min-w-[72px]">
-            <div className="relative">
-              <div className={`${story.isLive ? 'p-[2px] bg-gradient-to-tr from-pink-500 to-orange-500 rounded-full' : ''}`}>
-                <Avatar className="h-16 w-16 border-2 border-white">
+          <div key={index} className="flex flex-col items-center gap-2 min-w-[80px]">
+            <div className="relative cursor-pointer transform hover:scale-105 transition-transform duration-200">
+              <div className={`${
+                story.isLive 
+                  ? 'p-1 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full' 
+                  : 'p-1 bg-gradient-to-tr from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-600 rounded-full'
+              }`}>
+                <Avatar className="h-16 w-16 border-2 border-white dark:border-gray-800">
                   <img src={story.avatar} alt={story.username} className="object-cover" />
                 </Avatar>
               </div>
               {story.isLive && (
-                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-red-500 text-white text-xs px-2 rounded-full">
+                <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 bg-red-500 text-white text-xs px-2 py-0.5 rounded-full font-medium">
                   Live
                 </span>
               )}
             </div>
-            <span className="text-xs text-center truncate w-full">{story.username}</span>
+            <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate w-full text-center">
+              {story.username}
+            </span>
           </div>
         ))}
       </div>
