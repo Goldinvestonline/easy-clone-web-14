@@ -7,10 +7,10 @@ import AgoraRTC, { IAgoraRTCRemoteUser } from "agora-rtc-sdk-ng"
 import { 
   AgoraRTCProvider,
   useRTCClient,
-  useJoinChannel,
+  useJoin,
   useLocalCameraTrack,
   useLocalMicrophoneTrack,
-  RemoteUser
+  usePublish
 } from "agora-rtc-react"
 
 const client = AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })
@@ -27,22 +27,12 @@ const LiveStream = () => {
   
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack()
   const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack()
-  
-  const { join, leave } = useJoinChannel(
-    agoraClient,
-    {
-      appid: "167ba6c3748b43b8b44e986a74823223",
-      channel: channelName,
-      token: null // Using the app in testing mode without a token
-    },
-    (user) => {
-      setUsers((prev) => [...prev, user])
-      toast({
-        title: "New user joined",
-        description: `User ${user.uid} joined the stream`
-      })
-    }
-  )
+  const { join, leave } = useJoin({
+    appid: "167ba6c3748b43b8b44e986a74823223",
+    channel: channelName,
+    uid: Math.floor(Math.random() * 10000),
+  })
+  const { publish } = usePublish()
 
   const startCall = async () => {
     if (!channelName) {
@@ -56,7 +46,8 @@ const LiveStream = () => {
 
     try {
       if (localCameraTrack && localMicrophoneTrack) {
-        await join([localCameraTrack, localMicrophoneTrack])
+        await join()
+        await publish([localCameraTrack, localMicrophoneTrack])
         setInCall(true)
         toast({
           title: "Connected",
@@ -123,11 +114,12 @@ const LiveStream = () => {
               
               {/* Remote videos */}
               {users.map((user) => (
-                <RemoteUser 
+                <div 
                   key={user.uid}
-                  user={user}
                   className="relative aspect-video bg-black rounded-lg overflow-hidden"
-                />
+                >
+                  <div id={`remote-video-${user.uid}`} className="absolute inset-0"></div>
+                </div>
               ))}
             </div>
             
