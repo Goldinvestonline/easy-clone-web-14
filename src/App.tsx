@@ -7,6 +7,7 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import Index from "./pages/Index"
 import Profile from "./pages/Profile"
 import Messages from "./pages/Messages"
+import CreatePost from "./pages/CreatePost"
 
 const queryClient = new QueryClient()
 
@@ -21,7 +22,7 @@ const App = () => (
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/explore" element={<div>Explore page coming soon</div>} />
-              <Route path="/create" element={<div>Create post page coming soon</div>} />
+              <Route path="/create" element={<CreatePost />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/notifications" element={<div>Notifications page coming soon</div>} />
               <Route path="/profile" element={<Profile />} />
