@@ -23,7 +23,6 @@ import {
   Moon,
   Globe,
   LogOut,
-  Eye,
   Edit,
 } from "lucide-react"
 import { useEffect, useState } from "react"
@@ -75,8 +74,8 @@ export function ProfileSettingsMenu() {
             <span className="ml-auto text-muted-foreground text-sm">to subscribe</span>
           </DropdownMenuItem>
           <div className="flex items-center gap-2 px-2 py-1.5">
-            {isCreator ? <Edit className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
-            <span className="flex-1">{isCreator ? 'Creator mode' : 'Viewer mode'}</span>
+            <Edit className="h-5 w-5" />
+            <span className="flex-1">Creator mode</span>
             <Switch
               checked={isCreator}
               onCheckedChange={setIsCreator}
