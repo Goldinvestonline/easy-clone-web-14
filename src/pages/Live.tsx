@@ -1,14 +1,26 @@
 import { useState } from "react"
-import { useToast } from "@/components/ui/use-toast"
+import { useToast } from "@/hooks/use-toast"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { AgoraRTCProvider, useRTCClient, useJoin, useLocalCameraTrack, useLocalMicrophoneTrack } from "agora-rtc-react"
+import { 
+  AgoraRTCProvider, 
+  useRTCClient, 
+  useJoin as useAgoraJoin, 
+  useLocalCameraTrack, 
+  useLocalMicrophoneTrack,
+  createClient,
+  ClientConfig
+} from "agora-rtc-react"
 
 const config = {
   appId: "YOUR_APP_ID", // You'll need to replace this with your Agora App ID
-  channel: "test",
   token: null // Use null for testing. In production, you should use a token server
+}
+
+const rtcClientConfig: ClientConfig = {
+  mode: "rtc",
+  codec: "vp8"
 }
 
 const LiveStream = () => {
@@ -19,7 +31,11 @@ const LiveStream = () => {
   const client = useRTCClient()
   const { isLoading: isLoadingMic } = useLocalMicrophoneTrack()
   const { isLoading: isLoadingCam } = useLocalCameraTrack()
-  const { join, leave } = useJoin(client)
+  const { isLoading: isJoining, error: joinError } = useAgoraJoin({
+    appid: config.appId,
+    channel: channelName,
+    token: config.token
+  })
 
   const startCall = async () => {
     if (!channelName) {
@@ -32,7 +48,7 @@ const LiveStream = () => {
     }
 
     try {
-      await join(config.appId, channelName, config.token)
+      await client.join(config.appId, channelName, config.token || null)
       setInCall(true)
       toast({
         title: "Connected",
@@ -49,7 +65,7 @@ const LiveStream = () => {
 
   const endCall = async () => {
     try {
-      await leave()
+      await client.leave()
       setInCall(false)
       toast({
         title: "Call ended",
@@ -79,7 +95,7 @@ const LiveStream = () => {
             />
             <Button 
               onClick={startCall}
-              disabled={!channelName || isLoadingMic || isLoadingCam}
+              disabled={!channelName || isLoadingMic || isLoadingCam || isJoining}
               className="w-full"
             >
               Join Stream
@@ -114,8 +130,10 @@ const LiveStream = () => {
   )
 }
 
+const agoraClient = createClient(rtcClientConfig)
+
 const Live = () => (
-  <AgoraRTCProvider client={useRTCClient()}>
+  <AgoraRTCProvider client={agoraClient}>
     <LiveStream />
   </AgoraRTCProvider>
 )
