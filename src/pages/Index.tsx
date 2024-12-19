@@ -81,7 +81,7 @@ const Index = () => {
             <img 
               src="/lovable-uploads/103e6a11-94f2-45bc-b121-92dc0f12fb5d.png" 
               alt="PEARL FANS" 
-              className="h-8"
+              className="h-12"
             />
             <span className="text-2xl font-bold">PEARL FANS</span>
           </div>
