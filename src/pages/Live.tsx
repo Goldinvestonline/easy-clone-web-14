@@ -3,15 +3,14 @@ import { useToast } from "@/components/ui/use-toast"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import AgoraRTC from "agora-rtc-sdk-ng"
+import AgoraRTC, { type IAgoraRTCRemoteUser } from "agora-rtc-sdk-ng"
 import { 
   AgoraRTCProvider,
   useRTCClient,
   useJoin,
   useLocalCameraTrack,
   useLocalMicrophoneTrack,
-  usePublish,
-  type IAgoraRTCRemoteUser
+  usePublish
 } from "agora-rtc-react"
 
 const client = AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })
@@ -22,20 +21,18 @@ const LiveStream = () => {
   const [inCall, setInCall] = useState(false)
   const [users, setUsers] = useState<IAgoraRTCRemoteUser[]>([])
 
-  const agoraClient = useRTCClient(client, {
-    role: "host"
-  })
+  const agoraClient = useRTCClient()
   
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack()
   const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack()
   
-  const { join, leave } = useJoin(agoraClient, {
+  const { isConnected, error } = useJoin({
     appid: "167ba6c3748b43b8b44e986a74823223",
     channel: channelName,
-    token: null // Using null for testing mode
+    token: null
   })
 
-  const { publish } = usePublish(agoraClient)
+  const { publish } = usePublish()
 
   const startCall = async () => {
     if (!channelName) {
@@ -49,7 +46,14 @@ const LiveStream = () => {
 
     try {
       if (localCameraTrack && localMicrophoneTrack) {
-        await join()
+        if (!isConnected) {
+          await agoraClient.join(
+            "167ba6c3748b43b8b44e986a74823223",
+            channelName,
+            null
+          )
+        }
+        
         await publish([localCameraTrack, localMicrophoneTrack])
         setInCall(true)
         toast({
@@ -69,7 +73,7 @@ const LiveStream = () => {
 
   const endCall = async () => {
     try {
-      await leave()
+      await agoraClient.leave()
       setInCall(false)
       setUsers([])
       toast({
