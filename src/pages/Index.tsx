@@ -77,11 +77,7 @@ const Index = () => {
       <div className="flex min-h-screen w-full bg-background relative">
         {/* Top Bar */}
         <div className={`fixed top-0 left-0 right-0 z-50 bg-background border-b px-4 py-2 flex justify-between items-center transition-transform duration-300 ${!isVisible ? '-translate-y-full' : 'translate-y-0'}`}>
-          <img 
-            src="/lovable-uploads/7e62851e-305a-4cdd-9f11-e4b956decfd1.png" 
-            alt="Pearl Fans Logo" 
-            className="h-16 w-auto"
-          />
+          <span className="text-2xl font-bold">HOME</span>
           <div className="flex items-center gap-4">
             <button className="hover:opacity-70 transition-opacity">
               <Heart className="h-6 w-6" />
