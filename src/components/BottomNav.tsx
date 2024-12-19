@@ -1,4 +1,4 @@
-import { Home, Search, PlusSquare, UserCircle } from "lucide-react"
+import { Home, Search, PlusSquare, MessageCircle, UserCircle } from "lucide-react"
 import { Link, useLocation } from "react-router-dom"
 
 export function BottomNav() {
@@ -8,6 +8,7 @@ export function BottomNav() {
     { icon: Home, label: "Home", path: "/" },
     { icon: Search, label: "Explore", path: "/explore" },
     { icon: PlusSquare, label: "Create", path: "/create" },
+    { icon: MessageCircle, label: "Messages", path: "/messages" },
     { icon: UserCircle, label: "Profile", path: "/profile" },
   ]
 
