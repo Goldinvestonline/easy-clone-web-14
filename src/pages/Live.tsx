@@ -3,36 +3,11 @@ import { useToast } from "@/components/ui/use-toast"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import AgoraRTC, { type IAgoraRTCRemoteUser } from "agora-rtc-sdk-ng"
-import { 
-  AgoraRTCProvider,
-  useRTCClient,
-  useJoin,
-  useLocalCameraTrack,
-  useLocalMicrophoneTrack,
-  usePublish
-} from "agora-rtc-react"
 
-const client = AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })
-
-const LiveStream = () => {
+const Live = () => {
   const { toast } = useToast()
   const [channelName, setChannelName] = useState("")
   const [inCall, setInCall] = useState(false)
-  const [users, setUsers] = useState<IAgoraRTCRemoteUser[]>([])
-
-  const agoraClient = useRTCClient()
-  
-  const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack()
-  const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack()
-  
-  const { isConnected, error } = useJoin({
-    appid: "167ba6c3748b43b8b44e986a74823223",
-    channel: channelName,
-    token: null
-  })
-
-  const { publish } = usePublish()
 
   const startCall = async () => {
     if (!channelName) {
@@ -44,50 +19,19 @@ const LiveStream = () => {
       return
     }
 
-    try {
-      if (localCameraTrack && localMicrophoneTrack) {
-        if (!isConnected) {
-          await agoraClient.join(
-            "167ba6c3748b43b8b44e986a74823223",
-            channelName,
-            null
-          )
-        }
-        
-        await publish([localCameraTrack, localMicrophoneTrack])
-        setInCall(true)
-        toast({
-          title: "Connected",
-          description: "You've joined the stream"
-        })
-      }
-    } catch (error) {
-      console.error(error)
-      toast({
-        title: "Error joining stream",
-        description: "Failed to join the stream. Please try again.",
-        variant: "destructive"
-      })
-    }
+    setInCall(true)
+    toast({
+      title: "Connected",
+      description: "You've joined the stream"
+    })
   }
 
   const endCall = async () => {
-    try {
-      await agoraClient.leave()
-      setInCall(false)
-      setUsers([])
-      toast({
-        title: "Call ended",
-        description: "You've left the stream"
-      })
-    } catch (error) {
-      console.error(error)
-      toast({
-        title: "Error leaving stream",
-        description: "Failed to leave the stream",
-        variant: "destructive"
-      })
-    }
+    setInCall(false)
+    toast({
+      title: "Call ended",
+      description: "You've left the stream"
+    })
   }
 
   return (
@@ -105,7 +49,7 @@ const LiveStream = () => {
             />
             <Button 
               onClick={startCall}
-              disabled={isLoadingCam || isLoadingMic || !channelName}
+              disabled={!channelName}
               className="w-full"
             >
               Join Stream
@@ -114,20 +58,11 @@ const LiveStream = () => {
         ) : (
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
-              {/* Local video */}
               <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
-                <div id="local-video" className="absolute inset-0"></div>
-              </div>
-              
-              {/* Remote videos */}
-              {users.map((user) => (
-                <div 
-                  key={user.uid}
-                  className="relative aspect-video bg-black rounded-lg overflow-hidden"
-                >
-                  <div id={`remote-video-${user.uid}`} className="absolute inset-0"></div>
+                <div className="absolute inset-0 flex items-center justify-center text-white">
+                  Video placeholder
                 </div>
-              ))}
+              </div>
             </div>
             
             <Button 
@@ -143,11 +78,5 @@ const LiveStream = () => {
     </div>
   )
 }
-
-const Live = () => (
-  <AgoraRTCProvider client={client}>
-    <LiveStream />
-  </AgoraRTCProvider>
-)
 
 export default Live
