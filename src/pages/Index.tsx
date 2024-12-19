@@ -83,7 +83,6 @@ const Index = () => {
               alt="PEARL FANS" 
               className="h-12"
             />
-            <span className="text-2xl font-bold">PEARL FANS</span>
           </div>
           <div className="flex items-center gap-4">
             <button className="hover:opacity-70 transition-opacity">
