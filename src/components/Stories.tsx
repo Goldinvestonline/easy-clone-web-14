@@ -1,6 +1,5 @@
 import { Avatar } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 interface Story {
   username: string
@@ -34,17 +33,17 @@ const stories: Story[] = [
 
 export function Stories() {
   return (
-    <div className="w-full py-6 px-6 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
-      <div className="flex gap-6 overflow-x-auto no-scrollbar">
+    <div className="w-full py-4 px-4 border-b border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800">
+      <div className="flex gap-4 overflow-x-auto no-scrollbar">
         {stories.map((story, index) => (
-          <div key={index} className="flex flex-col items-center gap-2 min-w-[80px]">
+          <div key={index} className="flex flex-col items-center gap-1 min-w-[64px]">
             <div className="relative cursor-pointer transform hover:scale-105 transition-transform duration-200">
               <div className={`${
                 story.isLive 
-                  ? 'p-1 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full' 
-                  : 'p-1 bg-gradient-to-tr from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-600 rounded-full'
+                  ? 'p-0.5 bg-gradient-to-tr from-pink-500 to-purple-500 rounded-full' 
+                  : 'p-0.5 bg-gradient-to-tr from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-600 rounded-full'
               }`}>
-                <Avatar className="h-16 w-16 border-2 border-white dark:border-gray-800">
+                <Avatar className="h-14 w-14 border-2 border-white dark:border-gray-800">
                   <img src={story.avatar} alt={story.username} className="object-cover" />
                 </Avatar>
               </div>
@@ -54,7 +53,7 @@ export function Stories() {
                 </span>
               )}
             </div>
-            <span className="text-sm font-medium text-gray-700 dark:text-gray-300 truncate w-full text-center">
+            <span className="text-xs font-medium text-gray-700 dark:text-gray-300 truncate w-full text-center">
               {story.username}
             </span>
           </div>

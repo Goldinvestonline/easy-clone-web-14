@@ -1,10 +1,8 @@
 import { SidebarProvider } from "@/components/ui/sidebar"
-import { MainSidebar } from "@/components/MainSidebar"
 import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 import { Stories } from "@/components/Stories"
 import { Heart, MessageCircle } from "lucide-react"
-import { useEffect, useState } from "react"
 
 const posts = [
   {
@@ -52,55 +50,32 @@ const posts = [
 ]
 
 const Index = () => {
-  const [isVisible, setIsVisible] = useState(true)
-  const [lastScrollY, setLastScrollY] = useState(0)
-
-  useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY
-      if (currentScrollY > lastScrollY) {
-        setIsVisible(false)
-      } else {
-        setIsVisible(true)
-      }
-      setLastScrollY(currentScrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [lastScrollY])
-
   return (
     <SidebarProvider>
-      <div className="flex min-h-screen w-full bg-gray-50 dark:bg-gray-900 relative">
+      <div className="flex flex-col min-h-screen w-full bg-gray-50 dark:bg-gray-900">
         {/* Top Bar */}
-        <div 
-          className={`fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2 flex justify-between items-center transition-transform duration-300 shadow-sm ${
-            !isVisible ? '-translate-y-full' : 'translate-y-0'
-          }`}
-        >
+        <div className="fixed top-0 left-0 right-0 z-50 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 px-4 py-2 flex justify-between items-center shadow-sm">
           <div className="flex items-center gap-2">
             <img 
               src="/lovable-uploads/103e6a11-94f2-45bc-b121-92dc0f12fb5d.png" 
               alt="PEARL FANS" 
-              className="h-16 md:h-20 object-contain hover:scale-105 transition-transform duration-300"
+              className="h-10 object-contain"
             />
           </div>
           <div className="flex items-center gap-4">
-            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
               <Heart className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </button>
-            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors">
+            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
               <MessageCircle className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </button>
           </div>
         </div>
         
-        <MainSidebar />
-        <main className="flex-1 pb-20 md:pb-6 mt-24 md:mt-28">
-          <div className="mx-auto max-w-2xl bg-white dark:bg-gray-800 shadow-lg rounded-lg overflow-hidden">
+        <main className="flex-1 pb-20 mt-16">
+          <div className="mx-auto bg-white dark:bg-gray-800 shadow-sm">
             <Stories />
-            <div className="p-4 space-y-6">
+            <div className="p-4 space-y-4">
               {posts.map((post, index) => (
                 <PostCard key={index} {...post} />
               ))}

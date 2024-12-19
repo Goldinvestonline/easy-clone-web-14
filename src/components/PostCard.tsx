@@ -32,16 +32,15 @@ export function PostCard({
   hashtags
 }: PostCardProps) {
   return (
-    <Card className="overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm hover:shadow-md transition-shadow duration-200">
-      {/* Header */}
-      <div className="p-4 flex items-center justify-between border-b border-gray-100 dark:border-gray-700">
-        <div className="flex items-center gap-3">
-          <Avatar className="h-10 w-10 ring-2 ring-offset-2 ring-gray-100 dark:ring-gray-700">
+    <Card className="overflow-hidden bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700 shadow-sm">
+      <div className="p-3 flex items-center justify-between border-b border-gray-100 dark:border-gray-700">
+        <div className="flex items-center gap-2">
+          <Avatar className="h-8 w-8 ring-2 ring-offset-2 ring-gray-100 dark:ring-gray-700">
             <img src={author.avatar} alt={author.name} className="object-cover" />
           </Avatar>
           <div className="flex flex-col">
             <div className="flex items-center gap-1">
-              <span className="font-semibold text-gray-900 dark:text-gray-100">{author.name}</span>
+              <span className="font-semibold text-sm text-gray-900 dark:text-gray-100">{author.name}</span>
               {author.verified && (
                 <svg className="h-4 w-4 text-blue-500" viewBox="0 0 24 24" fill="currentColor">
                   <path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
@@ -49,7 +48,7 @@ export function PostCard({
               )}
             </div>
             {author.username && (
-              <span className="text-sm text-gray-500 dark:text-gray-400">@{author.username}</span>
+              <span className="text-xs text-gray-500 dark:text-gray-400">@{author.username}</span>
             )}
           </div>
         </div>
@@ -58,13 +57,12 @@ export function PostCard({
         </Button>
       </div>
 
-      {/* Content */}
-      <div className="px-4 py-3">
-        <p className="text-gray-800 dark:text-gray-200">{content}</p>
+      <div className="px-3 py-2">
+        <p className="text-sm text-gray-800 dark:text-gray-200">{content}</p>
         {hashtags && (
           <div className="mt-2 flex flex-wrap gap-2">
             {hashtags.map((tag) => (
-              <span key={tag} className="text-blue-500 dark:text-blue-400 text-sm hover:underline cursor-pointer">
+              <span key={tag} className="text-xs text-blue-500 dark:text-blue-400 hover:underline cursor-pointer">
                 #{tag}
               </span>
             ))}
@@ -72,44 +70,42 @@ export function PostCard({
         )}
       </div>
 
-      {/* Image */}
       {image && (
         <div className="relative aspect-square">
           <img src={image} alt="Post content" className="w-full h-full object-cover" />
         </div>
       )}
 
-      {/* Footer */}
-      <div className="p-4 flex items-center justify-between border-t border-gray-100 dark:border-gray-700">
-        <div className="flex items-center gap-6">
+      <div className="p-3 flex items-center justify-between border-t border-gray-100 dark:border-gray-700">
+        <div className="flex items-center gap-4">
           <Button 
             variant="ghost" 
             size="sm" 
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400"
+            className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-red-500 dark:hover:text-red-400"
           >
             <Heart className="h-5 w-5" />
-            <span className="font-medium">{likes}</span>
+            <span className="text-xs font-medium">{likes}</span>
           </Button>
           <Button 
             variant="ghost" 
             size="sm" 
-            className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
+            className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400"
           >
             <MessageCircle className="h-5 w-5" />
-            <span className="font-medium">{comments}</span>
+            <span className="text-xs font-medium">{comments}</span>
           </Button>
           {shares !== undefined && (
             <Button 
               variant="ghost" 
               size="sm" 
-              className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400"
+              className="flex items-center gap-1 text-gray-600 dark:text-gray-300 hover:text-green-500 dark:hover:text-green-400"
             >
               <Share2 className="h-5 w-5" />
-              <span className="font-medium">{shares}</span>
+              <span className="text-xs font-medium">{shares}</span>
             </Button>
           )}
         </div>
-        <span className="text-sm text-gray-500 dark:text-gray-400">{timestamp}</span>
+        <span className="text-xs text-gray-500 dark:text-gray-400">{timestamp}</span>
       </div>
     </Card>
   )
