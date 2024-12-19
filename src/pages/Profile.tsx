@@ -5,9 +5,10 @@ import { ProfileSettingsMenu } from "@/components/ProfileSettingsMenu"
 import { ProfilePicture } from "@/components/ProfilePicture"
 import { ProfileStats } from "@/components/ProfileStats"
 import { Link } from "react-router-dom"
+import { useState } from "react"
 
-const Profile = () => {
-  const profile = {
+const profiles = [
+  {
     username: "adhd",
     handle: "@mradh",
     status: "Available",
@@ -15,6 +16,50 @@ const Profile = () => {
     posts: 0,
     followers: 22,
     following: 0,
+    coverImage: "/lovable-uploads/ae833bdb-ce17-4bea-aea1-a09dd4da10b6.png",
+    avatar: "/lovable-uploads/ae833bdb-ce17-4bea-aea1-a09dd4da10b6.png"
+  },
+  {
+    username: "photography_pro",
+    handle: "@photo_master",
+    status: "Professional Photographer",
+    bio: "Capturing life's beautiful moments | Available for bookings",
+    posts: 245,
+    followers: 15300,
+    following: 892,
+    coverImage: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+    avatar: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
+  },
+  {
+    username: "tech_enthusiast",
+    handle: "@tech_guru",
+    status: "Tech Blogger",
+    bio: "Exploring the latest in technology | Reviews & Tips",
+    posts: 178,
+    followers: 8900,
+    following: 456,
+    coverImage: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
+    avatar: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
+  },
+  {
+    username: "pet_lover",
+    handle: "@cat_person",
+    status: "Pet Influencer",
+    bio: "Sharing adorable moments with my furry friends 🐱",
+    posts: 567,
+    followers: 25600,
+    following: 1234,
+    coverImage: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1",
+    avatar: "https://images.unsplash.com/photo-1582562124811-c09040d0a901"
+  }
+]
+
+const Profile = () => {
+  const [currentProfileIndex, setCurrentProfileIndex] = useState(0)
+  const profile = profiles[currentProfileIndex]
+
+  const switchProfile = () => {
+    setCurrentProfileIndex((prev) => (prev + 1) % profiles.length)
   }
 
   return (
@@ -46,7 +91,7 @@ const Profile = () => {
       {/* Profile Header Image */}
       <div className="relative h-48 bg-gradient-to-r from-blue-400 to-blue-600">
         <img 
-          src="/lovable-uploads/ae833bdb-ce17-4bea-aea1-a09dd4da10b6.png" 
+          src={profile.coverImage}
           alt="Profile header" 
           className="w-full h-full object-cover"
         />
@@ -57,14 +102,19 @@ const Profile = () => {
         <div className="relative -mt-16 mb-4 flex justify-between items-end">
           <div className="relative">
             <ProfilePicture 
-              initialImage="/lovable-uploads/ae833bdb-ce17-4bea-aea1-a09dd4da10b6.png"
+              initialImage={profile.avatar}
               username={profile.username}
             />
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-background" />
           </div>
-          <Button className="bg-primary hover:bg-primary/90">
-            Edit Profile
-          </Button>
+          <div className="flex gap-2">
+            <Button className="bg-primary hover:bg-primary/90">
+              Edit Profile
+            </Button>
+            <Button variant="outline" onClick={switchProfile}>
+              Switch Profile
+            </Button>
+          </div>
         </div>
 
         <div className="mb-6">
