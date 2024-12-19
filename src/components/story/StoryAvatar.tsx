@@ -14,7 +14,7 @@ export function StoryAvatar({ username, avatar, onClick }: StoryAvatarProps) {
       onClick={onClick}
     >
       <div className="relative cursor-pointer transform hover:scale-105 transition-transform duration-200">
-        <div className="p-0.5 bg-gradient-to-tr from-gray-300 to-gray-400 dark:from-gray-700 dark:to-gray-600 rounded-full">
+        <div className="p-0.5 bg-gradient-to-tr from-violet-400 to-violet-600 dark:from-violet-500 dark:to-violet-700 rounded-full">
           <Avatar className="h-14 w-14 border-2 border-white dark:border-gray-800">
             <img src={avatar} alt={username} className="object-cover" />
           </Avatar>
