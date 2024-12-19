@@ -8,6 +8,7 @@ import Index from "./pages/Index"
 import Profile from "./pages/Profile"
 import Messages from "./pages/Messages"
 import CreatePost from "./pages/CreatePost"
+import Notifications from "./pages/Notifications"
 
 const queryClient = new QueryClient()
 
@@ -24,7 +25,7 @@ const App = () => (
               <Route path="/explore" element={<div>Explore page coming soon</div>} />
               <Route path="/create" element={<CreatePost />} />
               <Route path="/messages" element={<Messages />} />
-              <Route path="/notifications" element={<div>Notifications page coming soon</div>} />
+              <Route path="/notifications" element={<Notifications />} />
               <Route path="/profile" element={<Profile />} />
             </Routes>
           </BrowserRouter>

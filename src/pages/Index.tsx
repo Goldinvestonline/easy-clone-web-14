@@ -3,6 +3,7 @@ import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 import { Stories } from "@/components/Stories"
 import { Bell } from "lucide-react"
+import { Link } from "react-router-dom"
 
 const posts = [
   {
@@ -63,9 +64,9 @@ const Index = () => {
             />
           </div>
           <div className="flex items-center gap-4">
-            <button className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+            <Link to="/notifications" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
               <Bell className="h-6 w-6 text-gray-600 dark:text-gray-300" />
-            </button>
+            </Link>
           </div>
         </div>
         
