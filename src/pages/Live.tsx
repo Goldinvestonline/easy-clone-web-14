@@ -3,11 +3,23 @@ import { useToast } from "@/components/ui/use-toast"
 import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { AgoraRTCProvider, useRTCClient, useJoin, useLocalCameraTrack, useLocalMicrophoneTrack } from "agora-rtc-react"
 
-const Live = () => {
+const config = {
+  appId: "YOUR_APP_ID", // You'll need to replace this with your Agora App ID
+  channel: "test",
+  token: null // Use null for testing. In production, you should use a token server
+}
+
+const LiveStream = () => {
   const { toast } = useToast()
   const [channelName, setChannelName] = useState("")
   const [inCall, setInCall] = useState(false)
+  
+  const client = useRTCClient()
+  const { isLoading: isLoadingMic } = useLocalMicrophoneTrack()
+  const { isLoading: isLoadingCam } = useLocalCameraTrack()
+  const { join, leave } = useJoin(client)
 
   const startCall = async () => {
     if (!channelName) {
@@ -19,19 +31,37 @@ const Live = () => {
       return
     }
 
-    setInCall(true)
-    toast({
-      title: "Connected",
-      description: "You've joined the stream"
-    })
+    try {
+      await join(config.appId, channelName, config.token)
+      setInCall(true)
+      toast({
+        title: "Connected",
+        description: "You've joined the stream"
+      })
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to join the stream",
+        variant: "destructive"
+      })
+    }
   }
 
   const endCall = async () => {
-    setInCall(false)
-    toast({
-      title: "Call ended",
-      description: "You've left the stream"
-    })
+    try {
+      await leave()
+      setInCall(false)
+      toast({
+        title: "Call ended",
+        description: "You've left the stream"
+      })
+    } catch (error) {
+      toast({
+        title: "Error",
+        description: "Failed to leave the stream",
+        variant: "destructive"
+      })
+    }
   }
 
   return (
@@ -49,7 +79,7 @@ const Live = () => {
             />
             <Button 
               onClick={startCall}
-              disabled={!channelName}
+              disabled={!channelName || isLoadingMic || isLoadingCam}
               className="w-full"
             >
               Join Stream
@@ -60,7 +90,12 @@ const Live = () => {
             <div className="grid grid-cols-2 gap-4">
               <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
                 <div className="absolute inset-0 flex items-center justify-center text-white">
-                  Video placeholder
+                  Local Video
+                </div>
+              </div>
+              <div className="relative aspect-video bg-black rounded-lg overflow-hidden">
+                <div className="absolute inset-0 flex items-center justify-center text-white">
+                  Remote Video
                 </div>
               </div>
             </div>
@@ -78,5 +113,11 @@ const Live = () => {
     </div>
   )
 }
+
+const Live = () => (
+  <AgoraRTCProvider client={useRTCClient()}>
+    <LiveStream />
+  </AgoraRTCProvider>
+)
 
 export default Live
