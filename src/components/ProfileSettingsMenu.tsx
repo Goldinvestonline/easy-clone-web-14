@@ -12,6 +12,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
+import { Switch } from "@/components/ui/switch"
 import {
   Settings,
   Star,
@@ -22,6 +23,7 @@ import {
   Moon,
   Globe,
   LogOut,
+  Edit,
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { CreatorOnboardingForm } from "./CreatorOnboardingForm"
@@ -29,6 +31,7 @@ import { CreatorOnboardingForm } from "./CreatorOnboardingForm"
 export function ProfileSettingsMenu() {
   const [isDark, setIsDark] = useState(false)
   const [showCreatorDialog, setShowCreatorDialog] = useState(false)
+  const [isCreator, setIsCreator] = useState(false)
 
   useEffect(() => {
     // Check if dark mode is already enabled
@@ -70,6 +73,15 @@ export function ProfileSettingsMenu() {
             <span>Your cards</span>
             <span className="ml-auto text-muted-foreground text-sm">to subscribe</span>
           </DropdownMenuItem>
+          <div className="flex items-center gap-2 px-2 py-1.5">
+            <Edit className="h-5 w-5" />
+            <span className="flex-1">Creator mode</span>
+            <Switch
+              checked={isCreator}
+              onCheckedChange={setIsCreator}
+              className="data-[state=checked]:bg-blue-500"
+            />
+          </div>
           <DropdownMenuItem 
             className="gap-2 h-11"
             onSelect={() => setShowCreatorDialog(true)}
