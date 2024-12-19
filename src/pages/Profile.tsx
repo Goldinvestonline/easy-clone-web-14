@@ -6,6 +6,7 @@ import { ProfilePicture } from "@/components/ProfilePicture"
 import { ProfileStats } from "@/components/ProfileStats"
 import { Link } from "react-router-dom"
 import { useState } from "react"
+import { EditProfileForm } from "@/components/EditProfileForm"
 
 const profiles = [
   {
@@ -56,10 +57,26 @@ const profiles = [
 
 const Profile = () => {
   const [currentProfileIndex, setCurrentProfileIndex] = useState(0)
+  const [isEditing, setIsEditing] = useState(false)
   const profile = profiles[currentProfileIndex]
 
   const switchProfile = () => {
     setCurrentProfileIndex((prev) => (prev + 1) % profiles.length)
+  }
+
+  if (isEditing) {
+    return (
+      <EditProfileForm
+        onClose={() => setIsEditing(false)}
+        initialData={{
+          username: profile.username,
+          displayName: profile.handle.slice(1), // Remove @ from handle
+          bio: profile.bio,
+          location: "",
+          websiteUrl: ""
+        }}
+      />
+    )
   }
 
   return (
@@ -108,7 +125,10 @@ const Profile = () => {
             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-background" />
           </div>
           <div className="flex gap-2">
-            <Button className="bg-primary hover:bg-primary/90">
+            <Button 
+              className="bg-primary hover:bg-primary/90"
+              onClick={() => setIsEditing(true)}
+            >
               Edit Profile
             </Button>
             <Button variant="outline" onClick={switchProfile}>
