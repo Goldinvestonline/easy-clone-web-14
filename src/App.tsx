@@ -9,6 +9,7 @@ import Profile from "./pages/Profile"
 import Messages from "./pages/Messages"
 import CreatePost from "./pages/CreatePost"
 import Notifications from "./pages/Notifications"
+import Explore from "./pages/Explore"
 
 const queryClient = new QueryClient()
 
@@ -22,7 +23,7 @@ const App = () => (
           <BrowserRouter>
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/explore" element={<div>Explore page coming soon</div>} />
+              <Route path="/explore" element={<Explore />} />
               <Route path="/create" element={<CreatePost />} />
               <Route path="/messages" element={<Messages />} />
               <Route path="/notifications" element={<Notifications />} />
