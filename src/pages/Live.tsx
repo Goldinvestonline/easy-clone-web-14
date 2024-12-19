@@ -4,26 +4,45 @@ import { Card } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import AgoraRTC, { IAgoraRTCRemoteUser } from "agora-rtc-sdk-ng"
-import { useClient, useJoin, useLocalMicrophoneTrack, useLocalCameraTrack } from "agora-rtc-react"
+import { 
+  AgoraRTCProvider,
+  useRTCClient,
+  useJoinChannel,
+  useLocalCameraTrack,
+  useLocalMicrophoneTrack,
+  RemoteUser
+} from "agora-rtc-react"
 
-const APP_ID = "YOUR_AGORA_APP_ID" // You'll need to replace this with your Agora App ID
+const client = AgoraRTC.createClient({ codec: "vp8", mode: "rtc" })
 
-const Live = () => {
+const LiveStream = () => {
   const { toast } = useToast()
   const [channelName, setChannelName] = useState("")
   const [inCall, setInCall] = useState(false)
   const [users, setUsers] = useState<IAgoraRTCRemoteUser[]>([])
 
-  const client = useClient()
+  const agoraClient = useRTCClient(client, {
+    role: "host"
+  })
+  
   const { isLoading: isLoadingCam, localCameraTrack } = useLocalCameraTrack()
   const { isLoading: isLoadingMic, localMicrophoneTrack } = useLocalMicrophoneTrack()
   
-  const { join, leave } = useJoin({
-    appid: APP_ID,
-    client: client,
-    channel: channelName,
-    uid: Math.floor(Math.random() * 10000),
-  })
+  const { join, leave } = useJoinChannel(
+    agoraClient,
+    {
+      appid: "167ba6c3748b43b8b44e986a74823223",
+      channel: channelName,
+      token: null // Using the app in testing mode without a token
+    },
+    (user) => {
+      setUsers((prev) => [...prev, user])
+      toast({
+        title: "New user joined",
+        description: `User ${user.uid} joined the stream`
+      })
+    }
+  )
 
   const startCall = async () => {
     if (!channelName) {
@@ -37,30 +56,12 @@ const Live = () => {
 
     try {
       if (localCameraTrack && localMicrophoneTrack) {
-        await join(
-          [localCameraTrack, localMicrophoneTrack],
-          () => {
-            toast({
-              title: "Connected",
-              description: "You've joined the stream"
-            })
-            setInCall(true)
-          },
-          (user) => {
-            setUsers((prev) => [...prev, user])
-            toast({
-              title: "New user joined",
-              description: `User ${user.uid} joined the stream`
-            })
-          },
-          (user) => {
-            setUsers((prev) => prev.filter((u) => u.uid !== user.uid))
-            toast({
-              title: "User left",
-              description: `User ${user.uid} left the stream`
-            })
-          }
-        )
+        await join([localCameraTrack, localMicrophoneTrack])
+        setInCall(true)
+        toast({
+          title: "Connected",
+          description: "You've joined the stream"
+        })
       }
     } catch (error) {
       console.error(error)
@@ -122,12 +123,11 @@ const Live = () => {
               
               {/* Remote videos */}
               {users.map((user) => (
-                <div 
-                  key={user.uid} 
+                <RemoteUser 
+                  key={user.uid}
+                  user={user}
                   className="relative aspect-video bg-black rounded-lg overflow-hidden"
-                >
-                  <div id={`remote-video-${user.uid}`} className="absolute inset-0"></div>
-                </div>
+                />
               ))}
             </div>
             
@@ -144,5 +144,11 @@ const Live = () => {
     </div>
   )
 }
+
+const Live = () => (
+  <AgoraRTCProvider client={client}>
+    <LiveStream />
+  </AgoraRTCProvider>
+)
 
 export default Live
