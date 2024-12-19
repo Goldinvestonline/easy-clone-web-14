@@ -30,6 +30,7 @@ const LiveStream = () => {
   const { join, leave } = useJoin({
     appid: "167ba6c3748b43b8b44e986a74823223",
     channel: channelName,
+    token: null, // Using null for testing mode
     uid: Math.floor(Math.random() * 10000),
   })
   const { publish } = usePublish()
