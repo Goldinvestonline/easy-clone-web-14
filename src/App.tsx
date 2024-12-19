@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import Index from "./pages/Index"
 import Profile from "./pages/Profile"
+import Messages from "./pages/Messages"
 
 const queryClient = new QueryClient()
 
@@ -21,7 +22,7 @@ const App = () => (
               <Route path="/" element={<Index />} />
               <Route path="/explore" element={<div>Explore page coming soon</div>} />
               <Route path="/create" element={<div>Create post page coming soon</div>} />
-              <Route path="/messages" element={<div>Messages page coming soon</div>} />
+              <Route path="/messages" element={<Messages />} />
               <Route path="/notifications" element={<div>Notifications page coming soon</div>} />
               <Route path="/profile" element={<Profile />} />
             </Routes>
