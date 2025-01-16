@@ -1,3 +1,6 @@
+import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
+import { useSession } from "@supabase/auth-helpers-react"
 import { SidebarProvider } from "@/components/ui/sidebar"
 import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
@@ -63,7 +66,19 @@ const posts = [
 
 const Index = () => {
   const [showCreatorDialog, setShowCreatorDialog] = useState(false)
+  const session = useSession()
+  const navigate = useNavigate()
   const isCreator = false // This would normally come from your auth context
+
+  useEffect(() => {
+    if (!session) {
+      navigate("/auth")
+    }
+  }, [session, navigate])
+
+  if (!session) {
+    return null
+  }
 
   return (
     <SidebarProvider>
