@@ -2,8 +2,19 @@ import { SidebarProvider } from "@/components/ui/sidebar"
 import { BottomNav } from "@/components/BottomNav"
 import { PostCard } from "@/components/PostCard"
 import { Stories } from "@/components/Stories"
-import { Bell } from "lucide-react"
+import { Bell, Plus } from "lucide-react"
 import { Link } from "react-router-dom"
+import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import { CreatorOnboardingForm } from "@/components/CreatorOnboardingForm"
+import { useState } from "react"
 
 const posts = [
   {
@@ -51,6 +62,9 @@ const posts = [
 ]
 
 const Index = () => {
+  const [showCreatorDialog, setShowCreatorDialog] = useState(false)
+  const isCreator = false // This would normally come from your auth context
+
   return (
     <SidebarProvider>
       <div className="flex flex-col min-h-screen w-full bg-gray-50 dark:bg-gray-900">
@@ -64,6 +78,25 @@ const Index = () => {
             />
           </div>
           <div className="flex items-center gap-4">
+            {!isCreator && (
+              <Dialog open={showCreatorDialog} onOpenChange={setShowCreatorDialog}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm" className="gap-2">
+                    <Plus className="h-4 w-4" />
+                    Become a Creator
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Become a Creator</DialogTitle>
+                    <DialogDescription>
+                      Set up your creator profile to start sharing content
+                    </DialogDescription>
+                  </DialogHeader>
+                  <CreatorOnboardingForm />
+                </DialogContent>
+              </Dialog>
+            )}
             <Link to="/notifications" className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
               <Bell className="h-6 w-6 text-gray-600 dark:text-gray-300" />
             </Link>
