@@ -11,11 +11,6 @@ const stories: Story[] = [
     isLive: true,
     content: [
       {
-        type: "image",
-        url: "https://images.unsplash.com/photo-1498936178812-4b2e558d2937",
-        timestamp: "2 hours ago"
-      },
-      {
         type: "text",
         text: "Having an amazing day! 🌟",
         timestamp: "1 hour ago"
@@ -27,8 +22,8 @@ const stories: Story[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=amanda",
     content: [
       {
-        type: "image",
-        url: "https://images.unsplash.com/photo-1501286353178-1ec881214838",
+        type: "text",
+        text: "Check out my latest post!",
         timestamp: "3 hours ago"
       }
     ]
@@ -38,8 +33,8 @@ const stories: Story[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=luiz",
     content: [
       {
-        type: "image",
-        url: "https://images.unsplash.com/photo-1438565434616-3ef039228b15",
+        type: "text",
+        text: "New content coming soon!",
         timestamp: "5 hours ago"
       }
     ]
@@ -60,8 +55,8 @@ const stories: Story[] = [
     avatar: "https://api.dicebear.com/7.x/avataaars/svg?seed=izaa",
     content: [
       {
-        type: "image",
-        url: "https://images.unsplash.com/photo-1582562124811-c09040d0a901",
+        type: "text",
+        text: "Working on something exciting!",
         timestamp: "6 hours ago"
       }
     ]

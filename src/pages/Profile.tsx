@@ -19,39 +19,6 @@ const profiles = [
     following: 0,
     coverImage: "/lovable-uploads/ae833bdb-ce17-4bea-aea1-a09dd4da10b6.png",
     avatar: "/lovable-uploads/ae833bdb-ce17-4bea-aea1-a09dd4da10b6.png"
-  },
-  {
-    username: "photography_pro",
-    handle: "@photo_master",
-    status: "Professional Photographer",
-    bio: "Capturing life's beautiful moments | Available for bookings",
-    posts: 245,
-    followers: 15300,
-    following: 892,
-    coverImage: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-    avatar: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158"
-  },
-  {
-    username: "tech_enthusiast",
-    handle: "@tech_guru",
-    status: "Tech Blogger",
-    bio: "Exploring the latest in technology | Reviews & Tips",
-    posts: 178,
-    followers: 8900,
-    following: 456,
-    coverImage: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
-    avatar: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952"
-  },
-  {
-    username: "pet_lover",
-    handle: "@cat_person",
-    status: "Pet Influencer",
-    bio: "Sharing adorable moments with my furry friends 🐱",
-    posts: 567,
-    followers: 25600,
-    following: 1234,
-    coverImage: "https://images.unsplash.com/photo-1535268647677-300dbf3d78d1",
-    avatar: "https://images.unsplash.com/photo-1582562124811-c09040d0a901"
   }
 ]
 
@@ -70,7 +37,7 @@ const Profile = () => {
         onClose={() => setIsEditing(false)}
         initialData={{
           username: profile.username,
-          displayName: profile.handle.slice(1), // Remove @ from handle
+          displayName: profile.handle.slice(1),
           bio: profile.bio,
           location: "",
           websiteUrl: ""
@@ -107,11 +74,13 @@ const Profile = () => {
 
       {/* Profile Header Image */}
       <div className="relative h-48 bg-gradient-to-r from-blue-400 to-blue-600">
-        <img 
-          src={profile.coverImage}
-          alt="Profile header" 
-          className="w-full h-full object-cover"
-        />
+        {profile.coverImage && (
+          <img 
+            src={profile.coverImage}
+            alt="Profile header" 
+            className="w-full h-full object-cover"
+          />
+        )}
       </div>
 
       {/* Profile Info */}

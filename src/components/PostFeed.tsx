@@ -38,8 +38,7 @@ const getPosts = async ({ pageParam = 1 }): Promise<PostsResponse> => {
       avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${Math.random()}`,
       subscriptionType: 'free' as const
     },
-    content: "This is a sample post content that demonstrates how the feed will look.",
-    image: `https://picsum.photos/seed/${pageParam}-${i}/600/600`,
+    content: "This is a sample post content.",
     timestamp: new Date(Date.now() - Math.random() * 10000000000).toLocaleDateString(),
     likes: Math.floor(Math.random() * 1000),
     comments: Math.floor(Math.random() * 100),
