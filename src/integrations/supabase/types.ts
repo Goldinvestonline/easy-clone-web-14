@@ -9,7 +9,173 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      content: {
+        Row: {
+          content_type: string
+          created_at: string
+          creator_id: string
+          description: string | null
+          file_path: string | null
+          id: string
+          is_premium: boolean | null
+          price: number | null
+          status: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          content_type: string
+          created_at?: string
+          creator_id: string
+          description?: string | null
+          file_path?: string | null
+          id?: string
+          is_premium?: boolean | null
+          price?: number | null
+          status?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          content_type?: string
+          created_at?: string
+          creator_id?: string
+          description?: string | null
+          file_path?: string | null
+          id?: string
+          is_premium?: boolean | null
+          price?: number | null
+          status?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "content_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          id: string
+          is_creator: boolean | null
+          updated_at: string
+          username: string | null
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          id: string
+          is_creator?: boolean | null
+          updated_at?: string
+          username?: string | null
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          id?: string
+          is_creator?: boolean | null
+          updated_at?: string
+          username?: string | null
+        }
+        Relationships: []
+      }
+      purchases: {
+        Row: {
+          amount: number
+          content_id: string
+          created_at: string
+          id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          amount: number
+          content_id: string
+          created_at?: string
+          id?: string
+          status: string
+          user_id: string
+        }
+        Update: {
+          amount?: number
+          content_id?: string
+          created_at?: string
+          id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "purchases_content_id_fkey"
+            columns: ["content_id"]
+            isOneToOne: false
+            referencedRelation: "content"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "purchases_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      subscriptions: {
+        Row: {
+          created_at: string
+          creator_id: string
+          current_period_end: string
+          current_period_start: string
+          id: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          creator_id: string
+          current_period_end: string
+          current_period_start: string
+          id?: string
+          status: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          creator_id?: string
+          current_period_end?: string
+          current_period_start?: string
+          id?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subscriptions_creator_id_fkey"
+            columns: ["creator_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "subscriptions_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
